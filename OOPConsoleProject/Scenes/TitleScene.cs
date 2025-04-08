@@ -17,9 +17,9 @@ namespace OOPConsoleProject.Scenes
 
         public override void RenderScene()
         {
-            Console.WriteLine("===========================================");
-            Console.WriteLine("==================포켓로그=================");
-            Console.WriteLine("===========================================");
+            Console.WriteLine("===========================================\n\n");
+            Console.WriteLine("==================포켓로그=================\n\n");
+            Console.WriteLine("===========================================\n");
         }
 
         public override void Result()

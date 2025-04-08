@@ -49,7 +49,7 @@ namespace OOPConsoleProject.PokemonData
             if(crit)
             {
                 Thread.Sleep(300);
-                Console.WriteLine("급소에 맞았다!");
+                Console.WriteLine("급소에 맞았다!\n");
             }  
 
             if (curHP <= 0)
@@ -89,7 +89,9 @@ namespace OOPConsoleProject.PokemonData
             curEXP += amount;
 
             Thread.Sleep(300);
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(StringUtil.KoreanParticle($"{name}은/는 {amount}만큼의 경험치를 획득했다!\n"));
+            Console.ResetColor();
 
             while (curEXP >= PokeManager.Instance.exp[level])
             {
@@ -102,7 +104,18 @@ namespace OOPConsoleProject.PokemonData
         {
             Thread.Sleep(300);
             Console.WriteLine(StringUtil.KoreanParticle($"{name}은/는 {level}에서 {level+1}로 레벨업 하였다!\n"));
+            int cHp = HP();
+            int cDamage = Damage();
+            int cDefense = Defense();
+            int cSpeed = Speed();
+
             level++;
+            Console.WriteLine("===================================\n");
+            Console.WriteLine($"체력   {HP() - cHp,3} 상승!\n");
+            Console.WriteLine($"공격력 {Damage() - cDamage,3} 상승!\n");
+            Console.WriteLine($"방어력 {Defense() - cDefense,3} 상승!\n");
+            Console.WriteLine($"스피드 {Speed() - cSpeed,3} 상승!\n");
+            Console.WriteLine("===================================\n");
         }
 
         public void SetLevel(int level)

@@ -46,10 +46,13 @@ namespace OOPConsoleProject.Util
                 switch (enemyType)
                 {
                     case Type.Grass:
+                        Console.WriteLine("효과가 굉장하다!\n");
                         return 2;
                     case Type.Water:
+                        Console.WriteLine("효과가 별로인 것 같다...\n");
                         return .5f;
                     case Type.Fire:
+                        Console.WriteLine("효과가 별로인 것 같다...\n");
                         return .5f;
                 }
             }
@@ -59,10 +62,13 @@ namespace OOPConsoleProject.Util
                 switch (enemyType)
                 {
                     case Type.Grass:
+                        Console.WriteLine("효과가 별로인 것 같다...\n");
                         return .5f;
                     case Type.Water:
+                        Console.WriteLine("효과가 별로인 것 같다...\n");
                         return .5f;
                     case Type.Fire:
+                        Console.WriteLine("효과가 굉장하다!\n");
                         return 2;
                 }
             }
@@ -72,10 +78,13 @@ namespace OOPConsoleProject.Util
                 switch (enemyType)
                 {
                     case Type.Grass:
+                        Console.WriteLine("효과가 별로인 것 같다...\n");
                         return .5f;
                     case Type.Water:
+                        Console.WriteLine("효과가 굉장하다!\n");
                         return 2;
                     case Type.Fire:
+                        Console.WriteLine("효과가 별로인 것 같다...\n");
                         return .5f;
                 }
             }

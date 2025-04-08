@@ -19,13 +19,14 @@ namespace OOPConsoleProject.Scenes
             if(!isBattle)
                 Setup();
 
-            Console.Write($"Lv.{playerPokemon.stat.level} {playerPokemon.name} HP : {playerPokemon.stat.HP()} / {playerPokemon.stat.curHP}");
+            Console.Write($"Lv.{playerPokemon.stat.level} {playerPokemon.name} HP : {playerPokemon.stat.curHP} / {playerPokemon.stat.HP()}");
             Console.Write($"                            ");
-            Console.Write($"Lv.{enemyPokemon.stat.level} {enemyPokemon.name} HP : {enemyPokemon.stat.HP()} / {enemyPokemon.stat.curHP}\n");
-            Console.Write($"현재 스테이지 : {Game.stageCount}");
+            Console.Write($"Lv.{enemyPokemon.stat.level} {enemyPokemon.name} HP : {enemyPokemon.stat.curHP} / {enemyPokemon.stat.HP()}");
+            Console.WriteLine($"                       현재 스테이지 : {Game.stageCount}\n");
+            Console.Write($"경험치 : {playerPokemon.stat.curEXP} / {PokeManager.Instance.exp[playerPokemon.stat.level]}");
 
-            PokeManager.Instance.DrawPokemon(playerPokemon.pixelData, 3, 3);
-            PokeManager.Instance.DrawPokemon(enemyPokemon.pixelData, 10, 3);
+            PokeManager.Instance.DrawPokemon(playerPokemon.pixelData, 5, 6);
+            PokeManager.Instance.DrawPokemon(enemyPokemon.pixelData, 15, 6);
         }
 
         private void Setup()
