@@ -1,4 +1,5 @@
-﻿using OOPConsoleProject.PokemonData;
+﻿using OOPConsoleProject.Item;
+using OOPConsoleProject.PokemonData;
 using System.Runtime.ExceptionServices;
 
 namespace OOPConsoleProject.Managers
@@ -36,6 +37,8 @@ namespace OOPConsoleProject.Managers
         public Dictionary<int, int> exp;
 
         public Dictionary<int, string[,]> pixels;
+
+        public Dictionary<int, ItemBase> items;
 
         private void InitializeSkills()
         {
@@ -121,6 +124,16 @@ namespace OOPConsoleProject.Managers
                 {1, PixelLoader("이상해씨")},
                 {2, PixelLoader("파이리")},
                 {3, PixelLoader("꼬부기")}
+            };
+        }
+        private void InitializeItems()
+        {
+            items = new Dictionary<int, ItemBase>
+            {
+                {1, new Taurine("타우린","포켓몬의 공격 노력치를 10% 늘려준다.") },
+                {1, new Saponin("타우린","포켓몬의 방어 노력치를 10% 늘려준다.") },
+                {1, new MaxUp("타우린","포켓몬의 체력 노력치를 10% 늘려준다.") },
+                {1, new Alkaloid("타우린","포켓몬의 스피드 노력치를 10% 늘려준다.") },
             };
         }
 

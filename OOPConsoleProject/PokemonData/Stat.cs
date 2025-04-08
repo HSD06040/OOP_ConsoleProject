@@ -102,6 +102,7 @@ namespace OOPConsoleProject.PokemonData
             this.level = level;
             curHP = HP();
         }
+
         #region Stat
         public int HP()
         {
@@ -120,16 +121,34 @@ namespace OOPConsoleProject.PokemonData
         {
             return AnotherStat(speed);
         }
-        #endregion
-
         public int AnotherStat(int stat)
         {
             return (2 * stat + 31) * level / 100 + 5;
         }
+        #endregion
 
         public void PrintStat()
         {
             Console.WriteLine($"레벨 : {level}, 체력 : {hp}, 공격력 : {damage}, 방어력 : {defense}, 스피드 : {speed}");
+        }
+
+        public void AddBaseStat(string name, int persent)
+        {
+            switch (name)
+            {
+                case "hp":
+                    hp *= (100 + persent) / 100;
+                    break;
+                case "damage":
+                    damage *= (100 + persent) / 100;
+                    break;
+                case "defense":
+                    defense *= (100 + persent) / 100;
+                    break;
+                case "speed":
+                    speed *= (100 + persent) / 100;
+                    break;
+            }
         }
     }
 }

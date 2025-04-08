@@ -11,6 +11,12 @@ namespace OOPConsoleProject.Item
         public string name;
         public string description;
 
+        public ItemBase(string name, string description)
+        {
+            this.name = name;
+            this.description = description;
+        }
+
         public abstract void Use();
     }
 }
