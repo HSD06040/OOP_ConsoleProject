@@ -21,8 +21,6 @@ namespace OOPConsoleProject
             SceneManager.Instance.ChangeScene("타이틀");
 
             Run();
-
-            Console.WriteLine($"{SP[0].stat.HP()}, {SP[0].stat.Damage()}, {SP[0].stat.Defense()}, {SP[0].stat.Speed()}");
         }
         public static void Run()
         {

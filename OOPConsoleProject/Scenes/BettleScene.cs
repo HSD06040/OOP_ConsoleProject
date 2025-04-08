@@ -90,7 +90,8 @@ namespace OOPConsoleProject.Scenes
                 }
                 else
                 {
-                    firstPoke.stat.GetEXP(secondPoke.stat.DropEXP());
+                    if(firstPoke == playerPokemon)
+                        firstPoke.stat.GetEXP(secondPoke.stat.DropEXP());
                 }
 
                 if(!isBattle)
@@ -145,8 +146,7 @@ namespace OOPConsoleProject.Scenes
             }
             else if (!playerPokemon.stat.isAlive)
             {
-                SceneManager.Instance.ChangeScene("끝");
-                Game.gameOver = true;
+                SceneManager.Instance.ChangeScene("끝");   
             }
         }
     }

@@ -30,6 +30,17 @@ namespace OOPConsoleProject.Util
 
             return text;
         }
+
+        public static void PrintSlow(string text, int delay = 50)
+        {
+            foreach (char c in text)
+            {
+                Console.Write(c);
+                Thread.Sleep(delay);
+            }
+            Console.WriteLine();
+        }
+
         public static string TypeKorean(Type type)
         {
             switch (type)
@@ -45,6 +56,51 @@ namespace OOPConsoleProject.Util
                 default:
                     return "노멀";
             }
+        }
+        public static ConsoleColor TypeColor(Type type)
+        {
+            return type switch
+            {
+                Type.Normal => ConsoleColor.White,
+                Type.Fire => ConsoleColor.Red,
+                Type.Grass => ConsoleColor.Green,
+                Type.Water => ConsoleColor.Blue,
+                _ => ConsoleColor.White
+            };
+        }
+        public static int GetDisplayWidth(string text)
+        {
+            int width = 0;
+            foreach (char c in text)
+            {
+                // 한글 유니코드 블록: 0xAC00 ~ 0xD7A3
+                width += (c >= 0xAC00 && c <= 0xD7A3) ? 2 : 1;
+            }
+            return width;
+        }
+
+        public static string PadRightDisplay(string text, int totalDisplayWidth)
+        {
+            int currentWidth = GetDisplayWidth(text);
+            int paddingNeeded = totalDisplayWidth - currentWidth;
+            return text + new string(' ', Math.Max(0, paddingNeeded));
+        }
+
+        public static string GetConsoleColorCodeByType(Type type)
+        {
+            return type switch
+            {
+                Type.Fire => "\x1b[91m",    
+                Type.Water => "\x1b[94m",   
+                Type.Grass => "\x1b[92m",   
+                //Type.Electric => "\x1b[33m",
+                //Type.Ice => "\x1b[36m",     
+                //Type.Fighting => "\x1b[91m",
+                //Type.Psychic => "\x1b[35m", 
+                //Type.Dragon => "\x1b[95m",  
+                //Type.Fairy => "\x1b[95m",   
+                _ => "\x1b[37m",            
+            };
         }
     }
 }

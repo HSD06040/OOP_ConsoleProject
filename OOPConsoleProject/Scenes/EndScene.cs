@@ -11,7 +11,7 @@ namespace OOPConsoleProject.Scenes
     {
         public override void Input()
         {
-            Console.WriteLine("타이틀로 돌아가려면 아무키나 클릭하시오");
+            Console.WriteLine("종료하시려면 esc 다시 플레이 하시려면 아무키나 클릭하세요");
             base.Input();
         }
         public override void RenderScene()
@@ -23,7 +23,14 @@ namespace OOPConsoleProject.Scenes
 
         public override void Result()
         {
-            SceneManager.Instance.ChangeScene("타이틀");
+            switch(input)
+            {
+                case ConsoleKey.Escape:
+                    Game.gameOver = true;
+                    break;
+                default: SceneManager.Instance.ChangeScene("타이틀");
+                    break;
+            }
         }
 
         public override void Update()

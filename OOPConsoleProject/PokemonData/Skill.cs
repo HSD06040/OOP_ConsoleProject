@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OOPConsoleProject.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,21 @@ namespace OOPConsoleProject.PokemonData
             this.type = type;
             this.skillPower = skillPower;
             this.chance = chance;
+        }
+
+        public void PrintSkillData()
+        {
+            string namePadded = StringUtil.PadRightDisplay(name, 12);
+
+            string typeText = StringUtil.TypeKorean(type).PadRight(2);
+
+            Console.Write($"{namePadded} / 타입 : ");
+
+            Console.ForegroundColor = StringUtil.TypeColor(type);
+            Console.Write($"{typeText}");
+            Console.ResetColor();
+
+            Console.Write($", 위력 : {skillPower,3}, 명중률 : {chance,3}\n");
         }
     }
 }

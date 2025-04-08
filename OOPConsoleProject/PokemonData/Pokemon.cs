@@ -25,6 +25,7 @@ namespace OOPConsoleProject.PokemonData
             stat = new Stat(name, type, hp, damage, defense, speed);
             this.name = name;
             this.id = id;
+            stat.OnLevelUp += Evolution;
         }
 
         public void SetLevel(int level) => stat.SetLevel(level);
@@ -55,11 +56,46 @@ namespace OOPConsoleProject.PokemonData
         public void PrintSkillData()
         {
             Console.WriteLine("=============================================================\n");
+
             for (int i = 0; i < skills.Length; i++)
             {
-                Console.WriteLine($"{i+1} : {skills[i].name,6} / 타입 : {StringUtil.TypeKorean(skills[i].type),2}, 위력 : {skills[i].skillPower,3}, 명중률 : {skills[i].chance,3}\n");
+                Skill skill = skills[i];
+
+                string namePadded = StringUtil.PadRightDisplay(skill.name, 12);
+
+                string typeText = StringUtil.TypeKorean(skill.type).PadRight(2);
+
+                Console.Write($"{i + 1,2} : {namePadded} / 타입 : ");
+
+                Console.ForegroundColor = StringUtil.TypeColor(skill.type);
+                Console.Write($"{typeText}");
+                Console.ResetColor();
+
+                Console.WriteLine($", 위력 : {skill.skillPower,3}, 명중률 : {skill.chance,3}\n");
             }
+
             Console.WriteLine("=============================================================\n");
+        }
+
+        public void Evolution()
+        {
+            if(EvolutionManager.TryGetEvolution(id, out EvolutionData data))
+            {
+                if(stat.level >= data.requiredLevel)
+                {
+                    int delay = 500;
+                    Pokemon evolved = PokeManager.Instance.SetupPokemon(data.evolvedDexNumber);
+                    evolved.SetLevel(stat.level);
+
+                    Console.Clear();
+
+                    Console.Write($"\n어랏? {name}의 모습이?\n");
+                    Console.Write("."); Thread.Sleep(delay); Console.Write("."); Thread.Sleep(delay); Console.Write(".\n"); Thread.Sleep(delay);
+                    Console.WriteLine($"{name}이(가) {evolved.name}(으)로 진화했다!\n");
+
+                    Game.SetupPlayerPokemon(evolved);
+                }
+            }
         }
     }
 }

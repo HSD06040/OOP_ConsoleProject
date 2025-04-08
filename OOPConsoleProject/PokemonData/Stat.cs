@@ -1,5 +1,7 @@
 ﻿using OOPConsoleProject.Managers;
 using OOPConsoleProject.Util;
+using System.Data;
+using System.Drawing;
 
 public enum Type
 {
@@ -22,6 +24,7 @@ namespace OOPConsoleProject.PokemonData
 
         public bool isAlive { get; private set; } = true;
 
+        public event Action OnLevelUp;
         public Stat(string name,Type type ,int hp, int damage, int defense, int speed)
         {
             this.hp = hp;
@@ -100,7 +103,7 @@ namespace OOPConsoleProject.PokemonData
             }
         }
 
-        private void LevelUp()
+        public void LevelUp()
         {
             Thread.Sleep(300);
             Console.WriteLine(StringUtil.KoreanParticle($"{name}은/는 {level}에서 {level+1}로 레벨업 하였다!\n"));
@@ -116,6 +119,8 @@ namespace OOPConsoleProject.PokemonData
             Console.WriteLine($"방어력 {Defense() - cDefense,3} 상승!\n");
             Console.WriteLine($"스피드 {Speed() - cSpeed,3} 상승!\n");
             Console.WriteLine("===================================\n");
+
+            OnLevelUp?.Invoke();
         }
 
         public void SetLevel(int level)
@@ -150,7 +155,12 @@ namespace OOPConsoleProject.PokemonData
 
         public void PrintStat()
         {
-            Console.WriteLine($"레벨 : {level}, 체력 : {hp}, 공격력 : {damage}, 방어력 : {defense}, 스피드 : {speed}");
+            Console.Write("타입 : ");
+            Console.ForegroundColor = StringUtil.TypeColor(type);
+            Console.Write($"{StringUtil.TypeKorean(type)}");
+            Console.ResetColor();
+
+            Console.WriteLine($", 레벨 : {level}, 체력 : {hp}, 공격력 : {damage}, 방어력 : {defense}, 스피드 : {speed}");
         }
 
         public void AddBaseStat(string name, int persent)

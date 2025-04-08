@@ -20,6 +20,9 @@ namespace OOPConsoleProject.Scenes
         public virtual void Exit() { }
         public virtual void Input()
         {
+            while (Console.KeyAvailable)
+                Console.ReadKey(true);
+
             input = Console.ReadKey(true).Key;
         }
 

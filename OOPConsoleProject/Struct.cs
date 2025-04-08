@@ -24,4 +24,15 @@ namespace OOPConsoleProject
         }
     }
 
+    public struct EvolutionData
+    {
+        public int evolvedDexNumber;    
+        public int requiredLevel;  
+        
+        public EvolutionData(int evolvedDexNumber,int requiredLevel)
+        {
+            this.evolvedDexNumber = evolvedDexNumber;
+            this.requiredLevel = requiredLevel;
+        }
+    }
 }

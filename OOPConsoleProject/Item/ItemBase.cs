@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OOPConsoleProject.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,10 +19,11 @@ namespace OOPConsoleProject.Item
         }
 
         public abstract void Use();
-        
+
         public void PrintData()
         {
-            Console.WriteLine($"{name,6} : {description}\n");
+            string namePadded = StringUtil.PadRightDisplay(name, 24);
+            Console.WriteLine($"{namePadded} : {description}\n");
         }
     }
 }

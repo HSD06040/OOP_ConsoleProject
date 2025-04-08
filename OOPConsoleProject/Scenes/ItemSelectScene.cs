@@ -1,7 +1,9 @@
 ﻿using OOPConsoleProject.Item;
 using OOPConsoleProject.Managers;
+using OOPConsoleProject.Util;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,27 +18,42 @@ namespace OOPConsoleProject.Scenes
         public override void Enter()
         {
             List<int> allItems = PokeManager.Instance.items.Keys.ToList();
-            HashSet<int> selectedItem = new HashSet<int>();
-            int id;
+            List<int> allSkillMachines = PokeManager.Instance.skillMachines.Keys.ToList();
+            HashSet<int> selectedItems = new HashSet<int>();
+            HashSet<int> selectedSkillMachines = new HashSet<int>();
 
-            while (selectedItem.Count < Game.itemCount)
+            while (selectedItems.Count + selectedSkillMachines.Count < Game.itemCount)
             {
-                do
-                {
-                    id = allItems[random.Next(allItems.Count)];
-                }
-                while (Game.stageCount < 30 && (id == 6 || id == 7)
-                       || Game.stageCount < 60 && (id == 7));
+                int id;
+                bool isSkillMachine = random.Next(100) < 20;            // 기술머신 확률 20%
 
-                selectedItem.Add(id);
+                if (isSkillMachine && allSkillMachines.Count > 0)       // 기술머신
+                {
+                    id = allSkillMachines[random.Next(allSkillMachines.Count)];
+                    selectedSkillMachines.Add(id);
+                }
+                else if (allItems.Count > 0)                            // 일반 아이템
+                {
+                    do
+                    {
+                        id = allItems[random.Next(allItems.Count)];
+                    }
+                    while ((Game.stageCount < 30 && (id == 6 || id == 7)) ||
+                           (Game.stageCount < 60 && id == 7));
+
+                    selectedItems.Add(id);
+                }
             }
 
             int index = 0;
-            foreach (int num in selectedItem)
+            foreach (int id in selectedItems)
             {
-                items[index++] = PokeManager.Instance.items[num];
+                items[index++] = PokeManager.Instance.items[id];
             }
-
+            foreach (int id in selectedSkillMachines)
+            {
+                items[index++] = PokeManager.Instance.skillMachines[id];
+            }
         }
 
         public override void RenderScene()
@@ -46,14 +63,18 @@ namespace OOPConsoleProject.Scenes
             {
                 item.PrintData();
             }
-            Console.WriteLine("=============================================================================");
+            Console.WriteLine("=================================================================================");
+
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine($"\n{playerPokemon.name}의 현재 체력 {playerPokemon.stat.curHP} / {playerPokemon.stat.HP()}\n");
+            Console.ResetColor();
         }
 
         public override void Input()
         {
             for (int i = 0; i < items.Length; i++)
             {
-                Console.WriteLine($"{i+1}. {items[i].name,6} 을 고른다.\n");
+                Console.WriteLine(StringUtil.KoreanParticle($"{i + 1}. {items[i].name}을/를 고른다.\n"));
             }
 
             do

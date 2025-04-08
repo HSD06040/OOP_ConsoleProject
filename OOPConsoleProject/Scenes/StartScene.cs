@@ -15,15 +15,21 @@ namespace OOPConsoleProject.Scenes
             Console.WriteLine("---------------------------------------------------------------------------\n");
             Console.WriteLine("---------------------------------------------------------------------------\n");
 
+            Console.ForegroundColor = StringUtil.TypeColor(SP[0].stat.type);
             Console.WriteLine($"1 : {SP[0].name,6}의 종족값\n");
+            Console.ResetColor();
             SP[0].stat.PrintStat();
             Console.WriteLine("\n");
 
+            Console.ForegroundColor = StringUtil.TypeColor(SP[1].stat.type);
             Console.WriteLine($"2 : {SP[1].name,6}의 종족값\n");
+            Console.ResetColor();
             SP[1].stat.PrintStat();
             Console.WriteLine("\n");
 
+            Console.ForegroundColor = StringUtil.TypeColor(SP[2].stat.type);
             Console.WriteLine($"3 : {SP[2].name,6}의 종족값\n");
+            Console.ResetColor();
             SP[2].stat.PrintStat();
             Console.WriteLine("\n");
 
