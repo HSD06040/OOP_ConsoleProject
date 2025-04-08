@@ -18,5 +18,10 @@ namespace OOPConsoleProject.Item
         }
 
         public abstract void Use();
+        
+        public void PrintData()
+        {
+            Console.WriteLine($"{name,6} : {description}\n");
+        }
     }
 }

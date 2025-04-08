@@ -12,12 +12,13 @@ namespace OOPConsoleProject
         public static Pokemon[] SP = { PokeManager.Instance.SetupPokemon(1), PokeManager.Instance.SetupPokemon(2), PokeManager.Instance.SetupPokemon(3) };
         public static Scene curScene;
         public static int stageCount = 0;
+        public static int itemCount = 3;
 
         private static bool gameOver = false;
 
         static void Main(string[] args)
         {
-            curScene = SceneManager.Instance.GetScene("타이틀");
+            SceneManager.Instance.ChangeScene("타이틀");
 
             Run();
 

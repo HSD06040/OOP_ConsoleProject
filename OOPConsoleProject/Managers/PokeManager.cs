@@ -28,6 +28,7 @@ namespace OOPConsoleProject.Managers
             InitializeEXP();
             InitializePokemon();
             InitializePixelData();
+            InitializeItems();
         }
 
         public Dictionary<int, Skill> skills;
@@ -130,10 +131,16 @@ namespace OOPConsoleProject.Managers
         {
             items = new Dictionary<int, ItemBase>
             {
+                // 종족값 Up Item
                 {1, new Taurine("타우린","포켓몬의 공격 노력치를 10% 늘려준다.") },
-                {1, new Saponin("타우린","포켓몬의 방어 노력치를 10% 늘려준다.") },
-                {1, new MaxUp("타우린","포켓몬의 체력 노력치를 10% 늘려준다.") },
-                {1, new Alkaloid("타우린","포켓몬의 스피드 노력치를 10% 늘려준다.") },
+                {2, new Saponin("사포닌","포켓몬의 방어 노력치를 10% 늘려준다.") },
+                {3, new MaxUp("맥스업","포켓몬의 체력 노력치를 10% 늘려준다.") },
+                {4, new Alkaloid("알칼로이드","포켓몬의 스피드 노력치를 10% 늘려준다.") },
+
+                // 힐 아이템
+                {5, new Potion("상처약","포켓몬의 HP를 20 만큼 회복한다.",20) },
+                {6, new Potion("좋은 상처약","포켓몬의 HP를 50 만큼 회복한다.",50) },
+                {7, new Potion("고급 상처약","포켓몬의 HP를 120만큼 회복한다.",120) }
             };
         }
 

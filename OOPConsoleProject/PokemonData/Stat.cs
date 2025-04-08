@@ -43,6 +43,7 @@ namespace OOPConsoleProject.PokemonData
         {
             curHP -= amount;
 
+            Thread.Sleep(300);
             Console.WriteLine(StringUtil.KoreanParticle($"{name,6}은/는 {amount,3} 만큼의 데미지를 입었다!\n"));
 
             if(crit)
@@ -57,6 +58,7 @@ namespace OOPConsoleProject.PokemonData
         {
             curHP += amount;
 
+            Thread.Sleep(300);
             Console.WriteLine(StringUtil.KoreanParticle($"{name,6}은/는 {amount,3} 만큼의 체력을 회복했다!\n"));
 
             if (curHP > HP())
@@ -67,6 +69,7 @@ namespace OOPConsoleProject.PokemonData
 
         public void Die()
         {
+            Thread.Sleep(300);
             Console.WriteLine(StringUtil.KoreanParticle($"{name,3}은/는 쓰러졌다.\n"));
             isAlive = false;
         }
@@ -81,7 +84,8 @@ namespace OOPConsoleProject.PokemonData
         public void GetEXP(int amount)
         {
             curEXP += amount;
-            
+
+            Thread.Sleep(300);
             Console.WriteLine(StringUtil.KoreanParticle($"{name}은/는 {amount}만큼의 경험치를 획득했다!\n"));
 
             while (curEXP >= PokeManager.Instance.exp[level])
@@ -93,6 +97,7 @@ namespace OOPConsoleProject.PokemonData
 
         private void LevelUp()
         {
+            Thread.Sleep(300);
             Console.WriteLine(StringUtil.KoreanParticle($"{name}은/는 {level}에서 {level+1}로 레벨업 하였다!\n"));
             level++;
         }

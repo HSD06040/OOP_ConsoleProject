@@ -24,7 +24,7 @@ namespace OOPConsoleProject.Scenes
 
         public override void Result()
         {
-            Game.curScene = SceneManager.Instance.GetScene("시작");
+            SceneManager.Instance.ChangeScene("시작");
         }
 
         public override void Update()

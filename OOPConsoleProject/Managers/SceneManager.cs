@@ -26,13 +26,15 @@ namespace OOPConsoleProject.Managers
         public Dictionary<string, Scene> sceneDictionary = new Dictionary<string, Scene>
         {
             { "타이틀", new TitleScene() },
-            { "시작" ,new StartScene() },
-            { "배틀" ,new BettleScene() }
+            { "시작"  ,new StartScene() },
+            { "배틀"  ,new BettleScene() },
+            { "아이템" , new ItemSelectScene() }
         };
 
-        public Scene GetScene(string sceneName)
+        public void ChangeScene(string sceneName)
         {
-            return sceneDictionary[sceneName];
+            Game.curScene = sceneDictionary[sceneName];
+            Game.curScene.Enter();
         }
     }
 }

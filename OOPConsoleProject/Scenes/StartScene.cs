@@ -42,7 +42,7 @@ namespace OOPConsoleProject.Scenes
 
         public override void Result()
         {
-            Game.curScene = SceneManager.Instance.GetScene("배틀");
+            SceneManager.Instance.ChangeScene("배틀");
         }
 
         public override void Update()

@@ -16,7 +16,8 @@ namespace OOPConsoleProject.Scenes
         protected Pokemon enemyPokemon  => Game.enemyPokemon;
         protected Random random = new Random();
         public abstract void RenderScene();
-
+        public virtual void Enter() { }
+        public virtual void Exit() { }
         public virtual void Input()
         {
             input = Console.ReadKey(true).Key;

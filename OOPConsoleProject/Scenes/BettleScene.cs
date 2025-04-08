@@ -17,7 +17,7 @@ namespace OOPConsoleProject.Scenes
         public override void RenderScene()
         {
             if(!isBattle)
-                Enter();
+                Setup();
 
             Console.Write($"Lv.{playerPokemon.stat.level} {playerPokemon.name} HP : {playerPokemon.stat.HP()} / {playerPokemon.stat.curHP}");
             Console.Write($"                            ");
@@ -28,7 +28,7 @@ namespace OOPConsoleProject.Scenes
             PokeManager.Instance.DrawPokemon(enemyPokemon.pixelData, 10, 3);
         }
 
-        private void Enter()
+        private void Setup()
         {
             Game.SetupEnemyPokemon(PokeManager.Instance.SetupRandomPokemon());
             Game.stageCount++;
@@ -66,18 +66,26 @@ namespace OOPConsoleProject.Scenes
                 Pokemon secondPoke = battle.turn.Dequeue();
 
                 Console.WriteLine($"{StringUtil.KoreanParticle($"{firstPoke.name}의 {firstPoke.selectSkill.name}!!!")}\n");
-                Thread.Sleep(300);
+                Thread.Sleep(500);
 
-                firstPoke.stat.DoDamage(secondPoke.stat, firstPoke.selectSkill);
-                Thread.Sleep(300);
+                if (random.Next(100) < firstPoke.selectSkill.chance)
+                    firstPoke.stat.DoDamage(secondPoke.stat, firstPoke.selectSkill);
+                else
+                    Console.WriteLine($"{firstPoke.name}의 공격은 빗나갔다!");
+
+                Thread.Sleep(500);
 
                 if (secondPoke.stat.isAlive)
                 {
                     Console.WriteLine($"{StringUtil.KoreanParticle($"{secondPoke.name}의 {secondPoke.selectSkill.name}!!!")}\n");
-                    Thread.Sleep(300);
+                    Thread.Sleep(500);
 
-                    secondPoke.stat.DoDamage(firstPoke.stat, secondPoke.selectSkill);
-                    Thread.Sleep(300);
+                    if (random.Next(100) < secondPoke.selectSkill.chance)
+                        secondPoke.stat.DoDamage(firstPoke.stat, secondPoke.selectSkill);
+                    else                    
+                        Console.WriteLine($"{firstPoke.name}의 공격은 빗나갔다!");
+
+                    Thread.Sleep(500);
                 }
                 else
                 {
@@ -125,15 +133,15 @@ namespace OOPConsoleProject.Scenes
         {
             if (!playerPokemon.stat.isAlive || !enemyPokemon.stat.isAlive)
             {
-                Console.WriteLine("==================================");
-                Console.WriteLine("계속 진행을 원하시면 아무키나 클릭하세요");
-                Console.WriteLine("==================================");
+                Console.WriteLine("==================================\n");
+                Console.WriteLine("계속 진행을 원하시면 아무키나 클릭하세요\n");
+                Console.WriteLine("==================================\n");
 
                 Console.ReadKey(true);
 
                 isBattle = false;
 
-                Game.curScene = SceneManager.Instance.GetScene("배틀");
+                SceneManager.Instance.ChangeScene("아이템");
             }
         }
     }
