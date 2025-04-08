@@ -71,7 +71,7 @@ namespace OOPConsoleProject.Scenes
                 if (random.Next(100) < firstPoke.selectSkill.chance)
                     firstPoke.stat.DoDamage(secondPoke.stat, firstPoke.selectSkill);
                 else
-                    Console.WriteLine($"{firstPoke.name}의 공격은 빗나갔다!");
+                    Console.WriteLine($"{firstPoke.name}의 공격은 빗나갔다!\n");
 
                 Thread.Sleep(500);
 
@@ -83,7 +83,7 @@ namespace OOPConsoleProject.Scenes
                     if (random.Next(100) < secondPoke.selectSkill.chance)
                         secondPoke.stat.DoDamage(firstPoke.stat, secondPoke.selectSkill);
                     else                    
-                        Console.WriteLine($"{firstPoke.name}의 공격은 빗나갔다!");
+                        Console.WriteLine($"{firstPoke.name}의 공격은 빗나갔다!\n");
 
                     Thread.Sleep(500);
                 }
@@ -131,7 +131,7 @@ namespace OOPConsoleProject.Scenes
 
         public override void Result()
         {
-            if (!playerPokemon.stat.isAlive || !enemyPokemon.stat.isAlive)
+            if (!enemyPokemon.stat.isAlive)
             {
                 Console.WriteLine("==================================\n");
                 Console.WriteLine("계속 진행을 원하시면 아무키나 클릭하세요\n");
@@ -140,8 +140,12 @@ namespace OOPConsoleProject.Scenes
                 Console.ReadKey(true);
 
                 isBattle = false;
-
                 SceneManager.Instance.ChangeScene("아이템");
+            }
+            else if (!playerPokemon.stat.isAlive)
+            {
+                SceneManager.Instance.ChangeScene("끝");
+                Game.gameOver = true;
             }
         }
     }

@@ -47,7 +47,10 @@ namespace OOPConsoleProject.PokemonData
             Console.WriteLine(StringUtil.KoreanParticle($"{name,6}은/는 {amount,3} 만큼의 데미지를 입었다!\n"));
 
             if(crit)
+            {
+                Thread.Sleep(300);
                 Console.WriteLine("급소에 맞았다!");
+            }  
 
             if (curHP <= 0)
             {

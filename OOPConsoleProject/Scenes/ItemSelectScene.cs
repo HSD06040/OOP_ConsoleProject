@@ -97,7 +97,7 @@ namespace OOPConsoleProject.Scenes
             Console.WriteLine("==================================\n");
 
             Console.ReadKey(true);
-
+         
             SceneManager.Instance.ChangeScene("배틀");
         }
     }

@@ -14,7 +14,7 @@ namespace OOPConsoleProject
         public static int stageCount = 0;
         public static int itemCount = 3;
 
-        private static bool gameOver = false;
+        public static bool gameOver = false;
 
         static void Main(string[] args)
         {
@@ -49,10 +49,13 @@ namespace OOPConsoleProject
                 SP[i].SetLevel(5);
             }
         }
+
         public static void End()
         {
-
+            stageCount = 0;
+            itemCount = 0;
         }
+
         public static void SetupPlayerPokemon(Pokemon pokemon) => playerPokemon = pokemon;
         public static void SetupEnemyPokemon(Pokemon pokemon) => enemyPokemon = pokemon;
     }

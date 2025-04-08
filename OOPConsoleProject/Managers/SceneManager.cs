@@ -28,7 +28,8 @@ namespace OOPConsoleProject.Managers
             { "타이틀", new TitleScene() },
             { "시작"  ,new StartScene() },
             { "배틀"  ,new BettleScene() },
-            { "아이템" , new ItemSelectScene() }
+            { "아이템" , new ItemSelectScene() },
+            { "끝"   , new EndScene()}
         };
 
         public void ChangeScene(string sceneName)
