@@ -1,16 +1,17 @@
-﻿using System;
+﻿using OOPConsoleProject.PokemonData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OOPConsoleProject
+namespace OOPConsoleProject.Util
 {
-    public class DamageCalculator
+    public static class DamageCalculator
     {
         static Random random = new Random();
 
-        public static void TotalDamageCalculator(Stat myStat,Skill skill, Stat enemyStat)
+        public static void TotalDamageCalculator(Stat myStat, Skill skill, Stat enemyStat)
         {
             bool crit = false;
             float critDamage = 1;
@@ -18,7 +19,7 @@ namespace OOPConsoleProject
             float STABValue = 1;
             float totalDamage = 0;
 
-            if(CanCrit())
+            if (CanCrit())
             {
                 crit = true;
                 critDamage = 1.5f;
@@ -26,23 +27,23 @@ namespace OOPConsoleProject
 
             if (STAB)
                 STABValue = 1.5f;
-            
-            totalDamage = (((((myStat.level * 2 / 5) + 2) * skill.skillPower * myStat.Damage() / 50)
-                / enemyStat.Defense() + 2) * critDamage * random.Next(217,255) / 100) * STABValue * TypeMultifly(skill.type,enemyStat.type);
-            
-            enemyStat.DecreaseHealth((int)totalDamage);
+
+            totalDamage = ((myStat.level * 2 / 5 + 2) * skill.skillPower * myStat.Damage() / 50
+                / enemyStat.Defense() + 2) * critDamage * random.Next(217, 255) / 100 * STABValue * TypeMultifly(skill.type, enemyStat.type);
+
+            enemyStat.DecreaseHealth((int)totalDamage,crit);
         }
 
         public static bool CanCrit()
         {
-            return random.Next(1,100) < 6.25f ? true : false;
+            return random.Next(1, 100) < 6.25f ? true : false;
         }
 
-        public static float TypeMultifly(Type skillType,Type enemyType)
+        public static float TypeMultifly(Type skillType, Type enemyType)
         {
-            if(skillType == Type.Fire)
+            if (skillType == Type.Fire)
             {
-                switch(enemyType)
+                switch (enemyType)
                 {
                     case Type.Grass:
                         return 2;

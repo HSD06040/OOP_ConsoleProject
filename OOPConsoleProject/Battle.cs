@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OOPConsoleProject.PokemonData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace OOPConsoleProject
 {
-    public class GameManager
+    public class Battle
     {
-        public static GameManager instance { get; private set; }
-
-        
+        public Queue<Pokemon> turn = new Queue<Pokemon>();
     }
 }

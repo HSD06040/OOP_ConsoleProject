@@ -1,4 +1,7 @@
-﻿namespace OOPConsoleProject
+﻿using OOPConsoleProject.PokemonData;
+using System.Runtime.ExceptionServices;
+
+namespace OOPConsoleProject.Managers
 {
     public class PokeManager
     {
@@ -13,6 +16,7 @@
                 {
                     instance = new PokeManager();
                 }
+
                 return instance;
             }
         }
@@ -27,13 +31,11 @@
 
         public Dictionary<int, Skill> skills;
 
-        public Dictionary<int, Pokemon> pokePedia;
+        public Dictionary<int, PokemonBaseStat> pokePedia;
 
         public Dictionary<int, int> exp;
 
         public Dictionary<int, string[,]> pixels;
-
-        string basePath = @"Resources/";
 
         private void InitializeSkills()
         {
@@ -89,11 +91,11 @@
         }
         private void InitializePokemon()
         {
-            pokePedia = new Dictionary<int, Pokemon>
+            pokePedia = new Dictionary<int, PokemonBaseStat>
             {
-                {1, new Pokemon("이상해씨" , 1 ,45, 49, 65, 45) },
-                {2, new Pokemon("파이리"   , 2 ,39, 60, 50, 65) },
-                {3, new Pokemon("꼬부기"   , 3 ,44, 48, 70, 43) },
+                {1, new PokemonBaseStat("이상해씨",Type.Grass,1 ,45, 49, 65, 45) },
+                {2, new PokemonBaseStat("파이리"  ,Type.Fire,2 ,39, 60, 50, 65) },
+                {3, new PokemonBaseStat("꼬부기"  ,Type.Water,3 ,44, 48, 70, 43) }
             };
         }
         private void InitializeEXP()
@@ -124,21 +126,25 @@
 
         public Pokemon SetupRandomPokemon()
         {
-            if (pokePedia.TryGetValue(random.Next(1, pokePedia.Count), out Pokemon pokemon))
+            if (pokePedia.TryGetValue(random.Next(1, pokePedia.Count+1), out PokemonBaseStat data))
             {
-                pokemon.SetupPixelData();
-                pokemon.SetupSkills();
-                return pokemon;
+                Pokemon newPoke = new Pokemon(data.name, data.type, data.id, data.hp, data.damage, data.defense, data.speed);
+                newPoke.SetupPixelData(pixels[data.id]);
+                newPoke.SetupSkills();
+                newPoke.SetLevel(random.Next(Game.stageCount + 1, Game.stageCount + 4));
+                return newPoke;
             }
             return null;
         }
         public Pokemon SetupPokemon(int id)
         {
-            pokePedia[id].SetupPixelData();
-            pokePedia[id].SetupSkills();
-            return pokePedia[id];
+            PokemonBaseStat data = pokePedia[id];
+            Pokemon newPoke = new Pokemon(data.name, data.type, data.id, data.hp, data.damage, data.defense, data.speed);
+            newPoke.SetupPixelData(pixels[data.id]);
+            newPoke.SetupSkills();       
+            return newPoke;
         }
-        public string[,] PixelLoader(string fileName)
+        private string[,] PixelLoader(string fileName)
         {
             string filePath = $"PixelData/{fileName}.txt";
             var lines = File.ReadAllLines(filePath);
@@ -146,17 +152,33 @@
             int rows = lines.Length;            // 행
             int cols = lines[0].Length;         // 열
 
-            string[,] pixel = new string[rows,cols];
+            string[,] pixel = new string[rows, cols];
 
             for (int y = 0; y < rows; y++)
             {
                 for (int x = 0; x < cols; x++)
                 {
-                    pixel[y,x] = lines[y][x].ToString();
+                    pixel[y, x] = lines[y][x].ToString();
                 }
             }
 
             return pixel;
+        }
+
+        public void DrawPokemon(string[,] pokemon, int xDistance, int yDistance)
+        {
+            int rows = pokemon.GetLength(0);
+            int cols = pokemon.GetLength(1);
+
+            for (int y = 0; y < rows; y++)
+            {
+                Console.SetCursorPosition(xDistance, yDistance + y);
+                for (int x = 0; x < cols; x++)
+                {
+                    Console.ResetColor();
+                    Console.Write(pokemon[y, x]);
+                }
+            }
         }
     }
 }

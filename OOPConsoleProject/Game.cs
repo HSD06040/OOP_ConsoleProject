@@ -1,30 +1,58 @@
-﻿namespace OOPConsoleProject
+﻿using OOPConsoleProject.Managers;
+using OOPConsoleProject.PokemonData;
+using OOPConsoleProject.Scenes;
+
+namespace OOPConsoleProject
 {
+
     public class Game
     {
+        public static Pokemon playerPokemon {  get; private set; }
+        public static Pokemon enemyPokemon;
+        public static Pokemon[] SP = { PokeManager.Instance.SetupPokemon(1), PokeManager.Instance.SetupPokemon(2), PokeManager.Instance.SetupPokemon(3) };
+        public static Scene curScene;
+        public static int stageCount = 0;
+
+        private static bool gameOver = false;
+
         static void Main(string[] args)
         {
-            Pokemon[] startingPokemon = { PokeManager.Instance.SetupPokemon(1), PokeManager.Instance.SetupPokemon(2), PokeManager.Instance.SetupPokemon(3) };
+            curScene = SceneManager.Instance.GetScene("타이틀");
 
-            Pokemon myPokemon;
+            Run();
 
-            Console.WriteLine($"{startingPokemon[1].name} 은/는 \n" +
-                $"{startingPokemon[1].skills[0].name}\n," +
-                $"{startingPokemon[1].skills[1].name}\n," +
-                $"{startingPokemon[1].skills[2].name}\n," +
-                $"{startingPokemon[1].skills[3].name}\n");
-            Console.WriteLine($"{startingPokemon[2].name} 은/는 \n" +
-                $"{startingPokemon[2].skills[0].name}\n," +
-                $"{startingPokemon[2].skills[1].name}\n," +
-                $"{startingPokemon[2].skills[2].name}\n," +
-                $"{startingPokemon[2].skills[3].name}\n");
-            Console.WriteLine($"{startingPokemon[0].name} 은/는 \n" +
-                $"{startingPokemon[0].skills[0].name}\n," +
-                $"{startingPokemon[0].skills[1].name}\n," +
-                $"{startingPokemon[0].skills[2].name}\n," +
-                $"{startingPokemon[0].skills[3].name}\n");
+            Console.WriteLine($"{SP[0].stat.HP()}, {SP[0].stat.Damage()}, {SP[0].stat.Defense()}, {SP[0].stat.Speed()}");
+        }
+        public static void Run()
+        {
+            Start();
+
+            while (gameOver == false)
+            {
+                Console.Clear();
+                curScene.RenderScene();
+                curScene.Input();
+                Console.WriteLine();
+                curScene.Update();
+                Console.WriteLine();
+                curScene.Result();
+            }
+
+            End();
         }
 
+        public static void Start() // 스타팅 포켓몬 레벨 선택
+        {
+            for (int i = 0; i < SP.Length; i++)
+            {
+                SP[i].SetLevel(5);
+            }
+        }
+        public static void End()
+        {
 
+        }
+        public static void SetupPlayerPokemon(Pokemon pokemon) => playerPokemon = pokemon;
+        public static void SetupEnemyPokemon(Pokemon pokemon) => enemyPokemon = pokemon;
     }
 }

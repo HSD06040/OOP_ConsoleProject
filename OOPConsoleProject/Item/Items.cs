@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OOPConsoleProject
+namespace OOPConsoleProject.Item
 {
-    public class SceneManager
+    public class Items : ItemBase
     {
-
+        public override void Use()
+        {
+            
+        }
     }
 }

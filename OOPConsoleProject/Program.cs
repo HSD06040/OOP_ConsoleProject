@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace OOPConsoleProject
 {
-    public abstract class Scene
+    internal class Program
     {
-        
-        public abstract void RenderScene();
-
 
     }
 }
