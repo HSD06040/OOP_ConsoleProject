@@ -1,6 +1,7 @@
 ﻿using OOPConsoleProject.Managers;
 using OOPConsoleProject.PokemonData;
 using OOPConsoleProject.Scenes;
+using System.Drawing;
 
 namespace OOPConsoleProject
 {
@@ -18,6 +19,8 @@ namespace OOPConsoleProject
 
         static void Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
             SceneManager.Instance.ChangeScene("타이틀");
 
             Run();

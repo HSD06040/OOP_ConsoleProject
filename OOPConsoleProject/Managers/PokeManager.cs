@@ -2,6 +2,8 @@
 using OOPConsoleProject.PokemonData;
 using OOPConsoleProject.Util;
 using System;
+using System.Drawing;
+using System.Net.Http.Headers;
 using System.Runtime.ExceptionServices;
 
 namespace OOPConsoleProject.Managers
@@ -223,22 +225,6 @@ namespace OOPConsoleProject.Managers
             }
 
             return pixel;
-        }
-
-        public void DrawPokemon(string[,] pokemon, int xDistance, int yDistance)
-        {
-            int rows = pokemon.GetLength(0);
-            int cols = pokemon.GetLength(1);
-
-            for (int y = 0; y < rows; y++)
-            {
-                Console.SetCursorPosition(xDistance, yDistance + y);
-                for (int x = 0; x < cols; x++)
-                {
-                    Console.ResetColor();
-                    Console.Write(pokemon[y, x]);
-                }
-            }
         }
     }
 }
