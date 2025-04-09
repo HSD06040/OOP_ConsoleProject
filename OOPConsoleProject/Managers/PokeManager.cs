@@ -135,6 +135,46 @@ namespace OOPConsoleProject.Managers
                 // 가디
                 {14, new PokemonBaseStat("가디"  ,Type.Fire,14 ,55, 70, 45, 60) },
                 {15, new PokemonBaseStat("윈디"  ,Type.Fire,15 ,90, 110, 80, 95) },
+
+                // 콘치
+                {16, new PokemonBaseStat("콘치"   ,Type.Water,16 ,45, 50, 55, 63) },
+                {17, new PokemonBaseStat("왕콘치"  ,Type.Water,17 ,80, 83, 74, 68) },
+
+                // 고라파덕
+                {18, new PokemonBaseStat("고라파덕",Type.Water,18 ,50, 60, 49, 55) },
+                {19, new PokemonBaseStat("골덕"    ,Type.Water,19 ,80, 90, 80, 85) },
+
+                // 크랩
+                {20, new PokemonBaseStat("크랩"   ,Type.Water,20 ,30, 90, 80, 50) },
+                {21, new PokemonBaseStat("킹크랩"  ,Type.Water,21 ,55, 130, 100, 75) },
+
+                // 달콤아
+                {22, new PokemonBaseStat("달콤아"   ,Type.Grass,22 ,42, 30, 38, 32) },
+                {23, new PokemonBaseStat("달무리나"  ,Type.Grass,23 ,52, 40, 48, 62) },
+                {24, new PokemonBaseStat("달코퀸"   ,Type.Grass,24 ,72, 120, 98, 72) },
+
+                // 치릴리
+                {25, new PokemonBaseStat("치릴리"   ,Type.Grass,25 ,45, 65, 50, 30) },
+                {26, new PokemonBaseStat("드레디어" ,Type.Grass,26 ,70, 110, 75, 90) },
+
+                // 무스틈니
+                {27, new PokemonBaseStat("무스틈니"   ,Type.Grass,27 ,74, 100, 72, 46) },
+
+                // 꼬렛
+                {28, new PokemonBaseStat("꼬렛"     ,Type.Normal,28 ,30, 53, 35, 72) },
+                {29, new PokemonBaseStat("레트라"   ,Type.Normal,29 ,55, 81, 65, 97) },
+
+                // 이브이
+                {30, new PokemonBaseStat("이브이"   ,Type.Normal,30 ,55, 55, 63, 55) },
+
+                // 폴리곤
+                {31, new PokemonBaseStat("폴리곤"   ,Type.Normal,31 ,65, 85, 72, 40) },
+
+                // 잠만보
+                {32, new PokemonBaseStat("잠만보"   ,Type.Normal,32 ,160, 110, 80, 30) },
+
+                // 파이어
+                {33, new PokemonBaseStat("파이어"   ,Type.Fire  ,32 ,90, 125, 90, 90) },
             };
         }
         private void InitializeEXP()

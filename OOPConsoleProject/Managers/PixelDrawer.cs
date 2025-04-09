@@ -7,13 +7,11 @@ namespace OOPConsoleProject.Managers
     {
         static void Main()
         {
-            string name = "윈디";
+            string name = "파이어";
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             string[,] matrix = ConvertImageToSymbolMatrix(name);
 
             //SaveMatrixToText(matrix, name);
-
-            Console.WriteLine("텍스트 파일 저장 완료!");
 
             DrawPokemon(PixelLoader(name), 1, 1);
         }
@@ -55,28 +53,33 @@ namespace OOPConsoleProject.Managers
 
                     if (IsWhite(pixel))
                         matrix[y, x] = "e"; // empty
-                    else if (IsBlack(pixel))
-                        matrix[y, x] = "w"; // w = white <- 테두리
-                    else if (IsRed(pixel))
-                        matrix[y, x] = "r"; // red
-                    else if (IsYellow(pixel))
-                        matrix[y, x] = "y"; // yellow
                     else if (IsDarkCyan(pixel))
                         matrix[y, x] = "v"; // darkCyan
+                    else if (IsMagenta(pixel))
+                        matrix[y, x] = "m"; // darkRed 
+                    else if (IsRed(pixel))
+                        matrix[y, x] = "r"; // red
+                    else if (IsDarkRed(pixel))
+                        matrix[y, x] = "k"; // darkRed 
+                    else if (IsBlack(pixel))
+                        matrix[y, x] = "w"; // w = white <- 테두리
+                    else if (IsDarkYellow(pixel))
+                        matrix[y, x] = "h"; // DarkYellow
+                    else if (IsYellow(pixel))
+                        matrix[y, x] = "y"; // yellow
                     else if (IsGreen(pixel))
                         matrix[y, x] = "g"; // green
                     else if (IsDarkGray(pixel))
                         matrix[y, x] = "a"; // darkGray
                     else if (IsDarkGreen(pixel))
-                        matrix[y, x] = "z"; // darkGreen
-                    else if (IsDarkRed(pixel))
-                        matrix[y, x] = "k"; // darkRed
+                        matrix[y, x] = "z"; // darkGreen             
                     else if (IsBlue(pixel))
                         matrix[y, x] = "b"; // blue
                     else if (IsCyan(pixel))
                         matrix[y, x] = "c"; // cyan
-                    else if (IsDarkYellow(pixel))
-                        matrix[y, x] = "h"; // DarkYellow
+                    
+                    else if (IsGray(pixel))
+                        matrix[y, x] = "j"; // DarkYellow
                     else
                         matrix[y, x] = "x"; // unknown
                 }
@@ -89,6 +92,9 @@ namespace OOPConsoleProject.Managers
         {
             switch (text)
             {
+                case "k":
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    break;
                 case "r":
                     Console.ForegroundColor = ConsoleColor.Red;
                     break;
@@ -106,10 +112,7 @@ namespace OOPConsoleProject.Managers
                     break;
                 case "j":
                     Console.ForegroundColor = ConsoleColor.Gray;
-                    break;
-                case "k":
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    break;
+                    break;     
                 case "a":
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     break;
@@ -124,6 +127,12 @@ namespace OOPConsoleProject.Managers
                     break;
                 case "v":
                     Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    break;
+                case "m":
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    break;
+                case "n":
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
                     break;
                 case "e":
                     Console.Write("  ");
@@ -199,10 +208,10 @@ namespace OOPConsoleProject.Managers
         }
 
         static bool IsWhite(Color c)        => c.R > 240 && c.G > 240 && c.B > 240;
-        static bool IsRed(Color c) => c.R > 150 && c.G > 50 && c.B < 80; 
-        static bool IsDarkRed(Color c) => c.R > 170 && c.G > 50 && c.G < 180 && c.B < 150 && c.G < 120;
-        static bool IsYellow(Color c)       => c.R > 200 && c.G > 125 && c.B < 160;
-        static bool IsDarkYellow(Color c)   => c.R > 170 && c.G > 120 && c.B < 120;
+        static bool IsRed(Color c)          => c.R > 150 && c.G > 50 && c.B < 160 && c.G < 145; 
+        static bool IsDarkRed(Color c)      => c.R > 170 && c.G > 50 && c.B < 90 && c.G < 120;
+        static bool IsYellow(Color c)       => c.R > 200 && c.G > 125 && c.B < 200;
+        static bool IsDarkYellow(Color c)   => c.R > 170 && c.G > 120 && c.B < 133 && c.R < 220;
         static bool IsGreen(Color c)        => c.R < 120 && c.G > 150 && c.B < 120;
         static bool IsDarkGreen(Color c)    => c.R < 120 && c.G > 80 && c.B < 120;
         static bool IsBlue(Color c)         => c.B > 180 && c.R < 100 && c.G < 100;
@@ -210,5 +219,7 @@ namespace OOPConsoleProject.Managers
         static bool IsDarkCyan(Color c)     => (c.R > 50 && c.G > 89 && c.B > 105 && c.R < 100 && c.G < 160 && c.B < 207);
         static bool IsBlack(Color c)        => c.R < 50 && c.G < 50 && c.B < 50;
         static bool IsDarkGray(Color c)     => c.R < 90 && c.G < 90 && c.B < 90;
+        static bool IsGray(Color c)         => c.R < 190 && c.G < 190 && c.B < 190;
+        static bool IsMagenta(Color c)      => c.R < 190 && c.G < 150 && c.B > 190;
     }
 }

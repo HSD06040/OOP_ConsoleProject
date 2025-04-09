@@ -46,7 +46,7 @@ namespace OOPConsoleProject.Util
             switch (type)
             {
                 case Type.Normal:
-                    return "노멀";
+                    return "노말";
                 case Type.Fire:
                     return "불";
                 case Type.Grass:
@@ -54,7 +54,7 @@ namespace OOPConsoleProject.Util
                 case Type.Water:
                     return "물";
                 default:
-                    return "노멀";
+                    return "노말";
             }
         }
         public static ConsoleColor TypeColor(Type type)
