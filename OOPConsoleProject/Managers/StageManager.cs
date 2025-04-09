@@ -15,11 +15,39 @@ namespace OOPConsoleProject.Managers
             {"어려움" , new int[] {3,6,9,11,15,17,19,21,24,26,27,31,13,20} }
         };
 
-        public static int[] GetDifficultyByStage(int stageCount)
+        public static int[] GetDifficultyByStage()
         {
-            if (stageCount >= 50) return stagePokemonByDifficulty["어려움"];
-            if (stageCount >= 25) return stagePokemonByDifficulty["보통"];
+            if (IsHard()) return stagePokemonByDifficulty["어려움"];
+            if (IsNormal()) return stagePokemonByDifficulty["보통"];
             return stagePokemonByDifficulty["쉬움"];
         }
+
+        public static List<int> GetDifficultyByStageSkill()
+        {
+            List<int> skills = new List<int>();
+
+            foreach(var data in PokeManager.Instance.skills)
+            {
+                if(data.Value.skillPower <= 70 && IsEasy())
+                {
+                    skills.Add(data.Key);
+                }
+
+                if (data.Value.skillPower <= 90 && IsNormal())
+                {
+                    skills.Add(data.Key);
+                }
+
+                if (IsHard())
+                {
+                    skills.Add(data.Key);
+                }
+            }
+
+            return skills;
+        }
+        static bool IsHard() => Game.stageCount >= 50;
+        static bool IsNormal() => Game.stageCount >= 25;
+        static bool IsEasy() => Game.stageCount < 25;
     }
 }

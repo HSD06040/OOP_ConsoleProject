@@ -27,7 +27,6 @@ namespace OOPConsoleProject.Scenes
 
             PixelDrawer.DrawPokemon(enemyPokemon.pixelData, 55, 5);
             PixelDrawer.DrawPokemon(PixelDrawer.FlipPokemonHorizontal(playerPokemon.pixelData),3,15);
-            //PixelDrawer.DrawFacingPokemons(playerPokemon.pixelData, enemyPokemon.pixelData);
             Console.WriteLine("\n\n\n");
         }
 
@@ -70,7 +69,7 @@ namespace OOPConsoleProject.Scenes
 
                 Console.WriteLine($"{StringUtil.KoreanParticle($"{firstPoke.name}의 {firstPoke.selectSkill.name}!!!")}\n");
                 Thread.Sleep(500);
-
+                
                 if (random.Next(100) < firstPoke.selectSkill.chance)
                     firstPoke.stat.DoDamage(secondPoke.stat, firstPoke.selectSkill);
                 else

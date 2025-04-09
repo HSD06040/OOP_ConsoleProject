@@ -38,7 +38,7 @@ namespace OOPConsoleProject.PokemonData
 
         public Pokemon SetupSkills()
         {
-            var allSkillIds = PokeManager.Instance.skills.Keys.ToList();
+            var allSkillIds = StageManager.GetDifficultyByStageSkill();
             var selectedSkillIds = new HashSet<int>();
 
             while (selectedSkillIds.Count < 4)
