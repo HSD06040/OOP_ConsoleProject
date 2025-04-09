@@ -29,6 +29,7 @@ namespace OOPConsoleProject.Scenes
                     Game.gameOver = true;
                     break;
                 default: SceneManager.Instance.ChangeScene("타이틀");
+                    Game.Start();
                     break;
             }
         }

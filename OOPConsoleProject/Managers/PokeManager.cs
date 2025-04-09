@@ -123,6 +123,18 @@ namespace OOPConsoleProject.Managers
                 {7, new PokemonBaseStat("꼬부기"  ,Type.Water,7 ,44, 48, 70, 43) },
                 {8, new PokemonBaseStat("어니부기",Type.Water,8 ,59, 64, 80, 58) },
                 {9, new PokemonBaseStat("거북왕"  ,Type.Water,9 ,79, 84, 105, 78) },
+
+                // 포니타
+                {10, new PokemonBaseStat("포니타"  ,Type.Fire,10 ,50, 70, 55, 90) },
+                {11, new PokemonBaseStat("날쌩마"  ,Type.Fire,11 ,65, 85, 80, 105) },
+
+                // 식스테일
+                {12, new PokemonBaseStat("식스테일"  ,Type.Fire,12 ,38, 45, 55, 65) },
+                {13, new PokemonBaseStat("나인테일"  ,Type.Fire,13 ,73, 80, 90, 100) },
+
+                // 가디
+                {14, new PokemonBaseStat("가디"  ,Type.Fire,14 ,55, 70, 45, 60) },
+                {15, new PokemonBaseStat("윈디"  ,Type.Fire,15 ,90, 110, 80, 95) },
             };
         }
         private void InitializeEXP()
@@ -143,13 +155,16 @@ namespace OOPConsoleProject.Managers
         }
         private void InitializePixelData()
         {
-            pixels = new Dictionary<int, string[,]>
+            pixels = new Dictionary<int, string[,]>();
+
+            foreach (var kvp in pokePedia)
             {
-                {1, PixelLoader("이상해씨")},
-                {2, PixelLoader("파이리")},
-                {3, PixelLoader("꼬부기")}
-            };
+                int id = kvp.Key;
+                string name = kvp.Value.name;
+                pixels[id] = PixelDrawer.PixelLoader(name);
+            }
         }
+
         private void InitializeItems()
         {
             items = new Dictionary<int, ItemBase>
@@ -193,7 +208,7 @@ namespace OOPConsoleProject.Managers
                 Pokemon newPoke = new Pokemon(data.name, data.type, data.id, data.hp, data.damage, data.defense, data.speed);
                 newPoke.SetupPixelData(pixels[data.id]);
                 newPoke.SetupSkills();
-                newPoke.SetLevel(random.Next(Game.stageCount + 1, Game.stageCount + 4));
+                newPoke.SetLevel(random.Next(Game.stageCount + 1, Game.stageCount + 3));
                 return newPoke;
             }
             return null;
@@ -205,26 +220,6 @@ namespace OOPConsoleProject.Managers
             newPoke.SetupPixelData(pixels[data.id]);
             newPoke.SetupSkills();       
             return newPoke;
-        }
-        private string[,] PixelLoader(string fileName)
-        {
-            string filePath = $"PixelData/{fileName}.txt";
-            var lines = File.ReadAllLines(filePath);
-
-            int rows = lines.Length;            // 행
-            int cols = lines[0].Length;         // 열
-
-            string[,] pixel = new string[rows, cols];
-
-            for (int y = 0; y < rows; y++)
-            {
-                for (int x = 0; x < cols; x++)
-                {
-                    pixel[y, x] = lines[y][x].ToString();
-                }
-            }
-
-            return pixel;
         }
     }
 }

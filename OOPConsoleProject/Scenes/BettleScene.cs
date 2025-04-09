@@ -25,8 +25,10 @@ namespace OOPConsoleProject.Scenes
             Console.WriteLine($"                       현재 스테이지 : {Game.stageCount}\n");
             Console.Write($"경험치 : {playerPokemon.stat.curEXP} / {PokeManager.Instance.exp[playerPokemon.stat.level]}");
 
-            PokeManager.Instance.DrawPokemon(playerPokemon.pixelData, 5, 6);
-            PokeManager.Instance.DrawPokemon(enemyPokemon.pixelData, 15, 6);
+            PixelDrawer.DrawPokemon(enemyPokemon.pixelData, 55, 5);
+            PixelDrawer.DrawPokemon(PixelDrawer.FlipPokemonHorizontal(playerPokemon.pixelData),3,15);
+            //PixelDrawer.DrawFacingPokemons(playerPokemon.pixelData, enemyPokemon.pixelData);
+            Console.WriteLine("\n\n\n");
         }
 
         private void Setup()

@@ -10,21 +10,21 @@ namespace OOPConsoleProject
     {
         public static Pokemon playerPokemon {  get; private set; }
         public static Pokemon enemyPokemon;
-        public static Pokemon[] SP = { PokeManager.Instance.SetupPokemon(1), PokeManager.Instance.SetupPokemon(2), PokeManager.Instance.SetupPokemon(3) };
+        public static Pokemon[] SP = { PokeManager.Instance.SetupPokemon(1), PokeManager.Instance.SetupPokemon(4), PokeManager.Instance.SetupPokemon(7) };
         public static Scene curScene;
         public static int stageCount = 0;
         public static int itemCount = 3;
 
         public static bool gameOver = false;
 
-        static void Main(string[] args)
-        {
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
+        //static void Main(string[] args)
+        //{
+        //    Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            SceneManager.Instance.ChangeScene("타이틀");
+        //    SceneManager.Instance.ChangeScene("타이틀");
 
-            Run();
-        }
+        //    Run();
+        //}
         public static void Run()
         {
             Start();
