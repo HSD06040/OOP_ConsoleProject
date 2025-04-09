@@ -5,16 +5,16 @@ namespace OOPConsoleProject.Managers
 {
     public class PixelDrawer
     {
-        static void Main()
-        {
-            string name = "파이어";
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
-            string[,] matrix = ConvertImageToSymbolMatrix(name);
+        //static void Main()
+        //{
+        //    string name = "파이어";
+        //    Console.OutputEncoding = System.Text.Encoding.UTF8;
+        //    string[,] matrix = ConvertImageToSymbolMatrix(name);
 
-            //SaveMatrixToText(matrix, name);
+        //    //SaveMatrixToText(matrix, name);
 
-            DrawPokemon(PixelLoader(name), 1, 1);
-        }
+        //    DrawPokemon(PixelLoader(name), 1, 1);
+        //}
         public static string[,] PixelLoader(string fileName)
         {
             string filePath = $"PixelData/txt/{fileName}.txt";

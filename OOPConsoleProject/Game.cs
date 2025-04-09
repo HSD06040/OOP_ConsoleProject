@@ -17,14 +17,14 @@ namespace OOPConsoleProject
 
         public static bool gameOver = false;
 
-        //static void Main(string[] args)
-        //{
-        //    Console.OutputEncoding = System.Text.Encoding.UTF8;
+        static void Main(string[] args)
+        {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-        //    SceneManager.Instance.ChangeScene("타이틀");
+            SceneManager.Instance.ChangeScene("타이틀");
 
-        //    Run();
-        //}
+            Run();
+        }
         public static void Run()
         {
             Start();

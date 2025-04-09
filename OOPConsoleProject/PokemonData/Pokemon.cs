@@ -2,6 +2,7 @@
 using OOPConsoleProject.Util;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,8 @@ namespace OOPConsoleProject.PokemonData
 {
     public class Pokemon
     {
-        Random random = new Random();
+        private Random random => PokeManager.Instance.random;
+
         public string name { get; private set; }
         public int id { get; private set; }
         public string[,] pixelData { get; private set; }
@@ -28,9 +30,13 @@ namespace OOPConsoleProject.PokemonData
             stat.OnLevelUp += Evolution;
         }
 
-        public void SetLevel(int level) => stat.SetLevel(level);
+        public Pokemon SetLevel(int level)
+        {
+            stat.SetLevel(level);
+            return this;
+        }
 
-        public void SetupSkills()
+        public Pokemon SetupSkills()
         {
             var allSkillIds = PokeManager.Instance.skills.Keys.ToList();
             var selectedSkillIds = new HashSet<int>();
@@ -46,11 +52,24 @@ namespace OOPConsoleProject.PokemonData
             {
                 skills[index++] = PokeManager.Instance.skills[id];
             }
+            return this;
         }
 
-        public void SetupPixelData(string[,] pixels)
+        public Pokemon SetupPixelData(string[,] pixels)
         {
             pixelData = pixels;
+            return this;
+        }
+
+        public Pokemon SetIV(int value)
+        {
+            stat.SetIV(value); 
+            return this;
+        }
+        public Pokemon SetRandomIV()
+        {
+            stat.SetIV(random.Next(32));
+            return this;
         }
 
         public void PrintSkillData()
@@ -86,12 +105,20 @@ namespace OOPConsoleProject.PokemonData
                     int delay = 500;
                     Pokemon evolved = PokeManager.Instance.SetupPokemon(data.evolvedDexNumber);
                     evolved.SetLevel(stat.level);
+                    evolved.SetIV(stat.IV);
+                    evolved.skills = skills;
 
                     Console.Clear();
 
-                    Console.Write($"\n어랏? {name}의 모습이?\n");
-                    Console.Write("."); Thread.Sleep(delay); Console.Write("."); Thread.Sleep(delay); Console.Write(".\n"); Thread.Sleep(delay);
-                    Console.WriteLine($"{name}이(가) {evolved.name}(으)로 진화했다!\n");
+                    PixelDrawer.DrawPokemon(pixelData,3,3);
+
+                    Console.WriteLine($"\n어랏? {name}의 모습이?\n");
+                    Console.Write("."); Thread.Sleep(delay); Console.Write("."); Thread.Sleep(delay); Console.Write("."); Thread.Sleep(delay);
+
+                    PixelDrawer.DrawPokemon(evolved.pixelData, 3, 30);
+
+                    Console.WriteLine($"\n{name}이(가) {evolved.name}(으)로 진화했다!\n");
+
 
                     Game.SetupPlayerPokemon(evolved);
                 }

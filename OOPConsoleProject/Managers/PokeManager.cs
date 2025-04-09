@@ -10,7 +10,7 @@ namespace OOPConsoleProject.Managers
 {
     public class PokeManager
     {
-        Random random = new Random();
+        public Random random = new Random();
 
         private static PokeManager instance;
         public static PokeManager Instance
@@ -57,8 +57,8 @@ namespace OOPConsoleProject.Managers
         {
             skills = new Dictionary<int, Skill>
             {
-                {0, new Skill("파괴광선", Type.Normal, 120, 65)},
-                {1, new Skill("기가임팩트", Type.Normal, 120, 65)},
+                {0, new Skill("파괴광선", Type.Normal, 100, 65)},
+                {1, new Skill("기가임팩트", Type.Normal, 90, 65)},
                 {2, new Skill("몸통박치기", Type.Normal, 40, 100)},
                 {3, new Skill("베어가르기", Type.Normal, 70, 100)},
                 {4, new Skill("박치기", Type.Normal, 70, 100)},
@@ -69,11 +69,11 @@ namespace OOPConsoleProject.Managers
                 {9, new Skill("풀베기", Type.Normal, 50, 95)},
         
                 // 풀 타입 기술
-                {10, new Skill("솔라빔", Type.Grass, 120, 70)},
-                {11, new Skill("리프스톰", Type.Grass, 130, 70)},
-                {12, new Skill("에너지볼", Type.Grass, 90, 100)},
-                {13, new Skill("리프블레이드", Type.Grass, 90, 90)},
-                {14, new Skill("씨폭탄", Type.Grass, 80, 100)},
+                {10, new Skill("솔라빔", Type.Grass, 100, 70)},
+                {11, new Skill("리프스톰", Type.Grass, 100, 70)},
+                {12, new Skill("에너지볼", Type.Grass, 70, 100)},
+                {13, new Skill("리프블레이드", Type.Grass, 80, 90)},
+                {14, new Skill("씨폭탄", Type.Grass, 80, 95)},
                 {15, new Skill("덩굴채찍", Type.Grass, 45, 100)},
                 {16, new Skill("메가드레인", Type.Grass, 40, 100)},
                 {17, new Skill("매지컬리프", Type.Grass, 60, 100)},
@@ -81,14 +81,14 @@ namespace OOPConsoleProject.Managers
                 {19, new Skill("개척하기", Type.Grass, 50, 90)},
         
                 // 불 타입 기술
-                {20, new Skill("플레어드라이브", Type.Fire, 120, 80)},
-                {21, new Skill("불대문자", Type.Fire, 110, 75)},
+                {20, new Skill("플레어드라이브", Type.Fire, 100, 80)},
+                {21, new Skill("불대문자", Type.Fire, 110, 70)},
                 {22, new Skill("화염방사", Type.Fire, 90, 95)},
-                {23, new Skill("열풍", Type.Fire, 95, 90)},
+                {23, new Skill("열풍", Type.Fire, 90, 90)},
                 {24, new Skill("불꽃엄니", Type.Fire, 65, 95)},
                 {25, new Skill("불꽃세례", Type.Fire, 40, 100)},
-                {26, new Skill("불꽃놀이", Type.Fire, 35, 85)},
-                {27, new Skill("플레임차지", Type.Fire, 50, 100)},
+                {26, new Skill("화염자동차", Type.Fire, 55, 85)},
+                {27, new Skill("니트로차지", Type.Fire, 50, 100)},
                 {28, new Skill("분화", Type.Fire, 100, 50)},
                 {29, new Skill("블레이즈킥", Type.Fire, 85, 90)},
         
@@ -103,6 +103,19 @@ namespace OOPConsoleProject.Managers
                 {37, new Skill("아쿠아제트", Type.Water, 40, 100)},
                 {38, new Skill("거품광선", Type.Water, 60, 100)},
                 {39, new Skill("물의파동", Type.Water, 60, 90)},
+
+                {40, new Skill("메가톤펀치", Type.Normal, 75, 85)},
+                {41, new Skill("불꽃펀치"  , Type.Fire, 75, 100)},
+                {42, new Skill("찝기"     , Type.Normal, 55, 100)},
+                {43, new Skill("짓밞기"   , Type.Normal, 65, 100)},
+                {44, new Skill("신속"     , Type.Normal, 80, 80)},
+                {44, new Skill("우드해머"  , Type.Grass, 100, 100)},
+                {44, new Skill("하드플랜트", Type.Grass, 150, 40)},
+                {44, new Skill("소금물"    , Type.Water, 65, 100)},
+                {44, new Skill("스피드스타", Type.Normal, 60, 100)},
+                {44, new Skill("스피드스타", Type.Normal, 60, 100)},
+                {44, new Skill("스피드스타", Type.Normal, 60, 100)},
+                {44, new Skill("스피드스타", Type.Normal, 60, 100)},
             };
         }
         private void InitializePokemon()
@@ -204,7 +217,6 @@ namespace OOPConsoleProject.Managers
                 pixels[id] = PixelDrawer.PixelLoader(name);
             }
         }
-
         private void InitializeItems()
         {
             items = new Dictionary<int, ItemBase>
@@ -243,23 +255,23 @@ namespace OOPConsoleProject.Managers
 
         public Pokemon SetupRandomPokemon()
         {
-            if (pokePedia.TryGetValue(random.Next(1, pokePedia.Count+1), out PokemonBaseStat data))
+            int[] pokemons;
+
+            pokemons = StageManager.GetDifficultyByStage(Game.stageCount);
+
+            if (pokePedia.TryGetValue(pokemons[random.Next(pokemons.Length)], out PokemonBaseStat data))
             {
-                Pokemon newPoke = new Pokemon(data.name, data.type, data.id, data.hp, data.damage, data.defense, data.speed);
-                newPoke.SetupPixelData(pixels[data.id]);
-                newPoke.SetupSkills();
-                newPoke.SetLevel(random.Next(Game.stageCount + 1, Game.stageCount + 3));
-                return newPoke;
+                return new Pokemon(data.name, data.type, data.id, data.hp, data.damage, data.defense, data.speed)
+                .SetupPixelData(pixels[data.id]).SetupSkills().SetLevel(random.Next(Game.stageCount + 1, Game.stageCount + 3)).SetRandomIV();
             }
             return null;
         }
         public Pokemon SetupPokemon(int id)
         {
             PokemonBaseStat data = pokePedia[id];
-            Pokemon newPoke = new Pokemon(data.name, data.type, data.id, data.hp, data.damage, data.defense, data.speed);
-            newPoke.SetupPixelData(pixels[data.id]);
-            newPoke.SetupSkills();       
-            return newPoke;
+
+            return new Pokemon(data.name, data.type, data.id, data.hp, data.damage, data.defense, data.speed)
+                .SetupPixelData(pixels[data.id]).SetupSkills();
         }
     }
 }

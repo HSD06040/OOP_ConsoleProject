@@ -22,6 +22,7 @@ namespace OOPConsoleProject.PokemonData
         public int curEXP { get; private set; }
         public Type type { get; private set; }
 
+        public int IV { get; private set; }
         public bool isAlive { get; private set; } = true;
 
         public event Action OnLevelUp;
@@ -132,7 +133,7 @@ namespace OOPConsoleProject.PokemonData
         #region Stat
         public int HP()
         {
-            return (2 * hp + 31) * level / 100 + level + 10;
+            return (2 * hp + IV) * level / 100 + level + 10;
         }
 
         public int Damage()
@@ -149,9 +150,18 @@ namespace OOPConsoleProject.PokemonData
         }
         public int AnotherStat(int stat)
         {
-            return (2 * stat + 31) * level / 100 + 5;
+            return (2 * stat + IV) * level / 100 + 5;
         }
         #endregion
+
+        public void SetIV(int value)
+        {
+            IV = value;
+            if(IV > 31)
+            {
+                IV = 31;
+            }
+        }
 
         public void PrintStat()
         {
