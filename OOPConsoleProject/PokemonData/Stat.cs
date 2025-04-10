@@ -26,6 +26,7 @@ namespace OOPConsoleProject.PokemonData
         public bool isAlive { get; private set; } = true;
 
         public event Action OnLevelUp;
+        public ItemStat itemStat { get; private set; } = new ItemStat();
         public Stat(string name,Type type ,int hp, int damage, int defense, int speed)
         {
             this.hp = hp;
@@ -114,12 +115,16 @@ namespace OOPConsoleProject.PokemonData
             int cSpeed = Speed();
 
             level++;
+
+
             Console.WriteLine("===================================\n");
             Console.WriteLine($"체력   {HP() - cHp,3} 상승!\n");
             Console.WriteLine($"공격력 {Damage() - cDamage,3} 상승!\n");
             Console.WriteLine($"방어력 {Defense() - cDefense,3} 상승!\n");
             Console.WriteLine($"스피드 {Speed() - cSpeed,3} 상승!\n");
             Console.WriteLine("===================================\n");
+
+            curHP += HP() - cHp;
 
             OnLevelUp?.Invoke();
         }

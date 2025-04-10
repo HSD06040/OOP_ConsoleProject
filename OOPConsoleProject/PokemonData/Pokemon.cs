@@ -18,7 +18,7 @@ namespace OOPConsoleProject.PokemonData
         public int id { get; private set; }
         public string[,] pixelData { get; private set; }
 
-        public Stat stat { get; private set; }
+        public Stat stat { get; private set; }   
         public Skill[] skills { get; private set; } = new Skill[4];
         public Skill selectSkill;
 
@@ -29,6 +29,8 @@ namespace OOPConsoleProject.PokemonData
             this.id = id;
             stat.OnLevelUp += Evolution;
         }
+
+        bool isEvolution = false;
 
         public Pokemon SetLevel(int level)
         {
@@ -98,7 +100,7 @@ namespace OOPConsoleProject.PokemonData
 
         public void Evolution()
         {
-            if(EvolutionManager.TryGetEvolution(id, out EvolutionData data))
+            if(EvolutionManager.TryGetEvolution(id, out EvolutionData data) && !isEvolution)
             {
                 if(stat.level >= data.requiredLevel)
                 {
@@ -113,14 +115,17 @@ namespace OOPConsoleProject.PokemonData
                     PixelDrawer.DrawPokemon(pixelData,3,3);
 
                     Console.WriteLine($"\n어랏? {name}의 모습이?\n");
-                    Console.Write("."); Thread.Sleep(delay); Console.Write("."); Thread.Sleep(delay); Console.Write("."); Thread.Sleep(delay);
+                    Console.Write("."); Thread.Sleep(delay); Console.Write("."); Thread.Sleep(delay); Console.WriteLine("."); Thread.Sleep(delay);
 
                     PixelDrawer.DrawPokemon(evolved.pixelData, 3, 30);
 
                     Console.WriteLine($"\n{name}이(가) {evolved.name}(으)로 진화했다!\n");
 
+                    isEvolution = true;
 
                     Game.SetupPlayerPokemon(evolved);
+
+                    Inventory.Update();
                 }
             }
         }

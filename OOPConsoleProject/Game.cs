@@ -8,8 +8,8 @@ namespace OOPConsoleProject
 
     public class Game
     {
-        public static Pokemon playerPokemon {  get; private set; }
-        public static Pokemon enemyPokemon;
+        public static Pokemon playerPokemon { get; private set; }
+        public static Pokemon enemyPokemon  { get; private set; }
         public static Pokemon[] SP = { PokeManager.Instance.SetupPokemon(1), PokeManager.Instance.SetupPokemon(4), PokeManager.Instance.SetupPokemon(7) };
         public static Scene curScene;
         public static int stageCount = 0;
@@ -54,9 +54,10 @@ namespace OOPConsoleProject
         public static void End()
         {
             stageCount = 0;
-            itemCount = 0;
+            Inventory.Clear();
         }
 
+        public static void AddItemCount() => itemCount++;
         public static void SetupPlayerPokemon(Pokemon pokemon) => playerPokemon = pokemon;
         public static void SetupEnemyPokemon(Pokemon pokemon) => enemyPokemon = pokemon;
     }

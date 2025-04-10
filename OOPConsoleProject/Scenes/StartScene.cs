@@ -10,10 +10,10 @@ namespace OOPConsoleProject.Scenes
 
         public override void RenderScene()
         {
-            Console.WriteLine("-------------------------스타팅 포켓몬 고르기------------------------------");
+            Console.WriteLine("=========================스타팅 포켓몬 고르기==============================");
 
-            Console.WriteLine("---------------------------------------------------------------------------\n");
-            Console.WriteLine("---------------------------------------------------------------------------\n");
+            Console.WriteLine("===========================================================================\n");
+            Console.WriteLine("===========================================================================\n");
 
             Console.ForegroundColor = StringUtil.TypeColor(SP[0].stat.type);
             Console.WriteLine($"1 : {SP[0].name,6}의 종족값\n");
@@ -21,19 +21,25 @@ namespace OOPConsoleProject.Scenes
             SP[0].stat.PrintStat();
             Console.WriteLine("\n");
 
+            PixelDrawer.DrawPokemon(SP[0].pixelData,3,10);
+
             Console.ForegroundColor = StringUtil.TypeColor(SP[1].stat.type);
-            Console.WriteLine($"2 : {SP[1].name,6}의 종족값\n");
+            Console.WriteLine($"\n\n2 : {SP[1].name,6}의 종족값\n");
             Console.ResetColor();
             SP[1].stat.PrintStat();
             Console.WriteLine("\n");
 
+            PixelDrawer.DrawPokemon(SP[1].pixelData, 3, 35);
+
             Console.ForegroundColor = StringUtil.TypeColor(SP[2].stat.type);
-            Console.WriteLine($"3 : {SP[2].name,6}의 종족값\n");
+            Console.WriteLine($"\n\n3 : {SP[2].name,6}의 종족값\n");
             Console.ResetColor();
             SP[2].stat.PrintStat();
             Console.WriteLine("\n");
 
-            Console.WriteLine("-------------------------------------------------------------------------\n");
+            PixelDrawer.DrawPokemon(SP[2].pixelData, 3, 60);
+
+            Console.WriteLine("=========================================================================\n");
         }
 
         public override void Input()

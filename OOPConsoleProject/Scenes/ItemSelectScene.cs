@@ -12,25 +12,55 @@ namespace OOPConsoleProject.Scenes
 {
     public class ItemSelectScene : Scene
     {
-        private ItemBase[] items = new ItemBase[Game.itemCount];
-        private ItemBase selectItem;
+        private ItemBase[] items;
+        
 
         public override void Enter()
         {
-            List<int> allItems = PokeManager.Instance.items.Keys.ToList();
-            List<int> allSkillMachines = PokeManager.Instance.skillMachines.Keys.ToList();
-            HashSet<int> selectedItems = new HashSet<int>();
-            HashSet<int> selectedSkillMachines = new HashSet<int>();
+            StageManager.StageItemCount();
 
-            while (selectedItems.Count + selectedSkillMachines.Count < Game.itemCount)
+            items = new ItemBase[Game.itemCount];
+
+            List<int> allItems          = PokeManager.Instance.items.Keys.ToList();
+            List<int> allSkillMachines  = PokeManager.Instance.skillMachines.Keys.ToList();
+            List<int> allRareItems = PokeManager.Instance.rareItems.Keys.ToList();
+            List<int> allBattleItems = PokeManager.Instance.battleItems.Keys.ToList();
+
+            HashSet<int> selectedItems          = new HashSet<int>();        
+            HashSet<int> selectedSkillMachines  = new HashSet<int>();
+            HashSet<int> selectedRareItems      = new HashSet<int>();
+            HashSet<int> selectedBattleItems    = new HashSet<int>();
+
+            while (selectedItems.Count + selectedSkillMachines.Count + selectedBattleItems.Count + selectedRareItems.Count
+                    < Game.itemCount)
             {
                 int id;
-                bool isSkillMachine = random.Next(100) < 20;            // 기술머신 확률 20%
+                int randomNum = random.Next(1,100);
+                bool isSkillMachine = false;                                // 기술머신 확률 20%, 황금몬스터볼 확률 3퍼, 배틀아이템 6퍼 
+                bool isBattleItem = false;
+                bool isRareItem = false;
+
+                if (randomNum <= 1)
+                    isRareItem = true;
+                else if (randomNum <= 4)
+                    isBattleItem = true;
+                else if (randomNum <= 20)
+                    isSkillMachine = true;
 
                 if (isSkillMachine && allSkillMachines.Count > 0)       // 기술머신
                 {
                     id = allSkillMachines[random.Next(allSkillMachines.Count)];
                     selectedSkillMachines.Add(id);
+                }
+                else if (isBattleItem && allBattleItems.Count > 0)           // 배틀아이템
+                {
+                    id = allBattleItems[random.Next(allBattleItems.Count)];
+                    selectedBattleItems.Add(id);
+                }
+                else if (isRareItem && allRareItems.Count > 0)       // 레어아이템
+                {
+                    id = allRareItems[random.Next(allRareItems.Count)];
+                    selectedRareItems.Add(id);
                 }
                 else if (allItems.Count > 0)                            // 일반 아이템
                 {
@@ -54,29 +84,40 @@ namespace OOPConsoleProject.Scenes
             {
                 items[index++] = PokeManager.Instance.skillMachines[id];
             }
+            foreach (int id in selectedBattleItems)
+            {
+                items[index++] = PokeManager.Instance.battleItems[id];
+            }
+            foreach (int id in selectedRareItems)
+            {
+                items[index++] = PokeManager.Instance.rareItems[id];
+            }
         }
 
         public override void RenderScene()
         {
-            Console.WriteLine("========================아이템을 고르세요!==============================\n");
+            Console.WriteLine("===================================아이템을 고르세요!===================================\n");
             foreach (var item in items)
             {
                 item.PrintData();
             }
-            Console.WriteLine("=================================================================================");
+            Console.WriteLine("======================================================================================");
 
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine($"\n{playerPokemon.name}의 현재 체력 {playerPokemon.stat.curHP} / {playerPokemon.stat.HP()}\n");
             Console.ResetColor();
+            playerPokemon.PrintSkillData();
         }
 
         public override void Input()
         {
+            Console.WriteLine("==================================\n");
             for (int i = 0; i < items.Length; i++)
             {
                 Console.WriteLine(StringUtil.KoreanParticle($"{i + 1}. {items[i].name}을/를 고른다.\n"));
             }
 
+            Console.WriteLine("==================================\n");
             do
             {
                 base.Input();
@@ -86,27 +127,7 @@ namespace OOPConsoleProject.Scenes
 
         public override void Update()
         {
-            switch(input)
-            {
-                case ConsoleKey.D1:
-                    selectItem = items[0];
-                    break;
-                case ConsoleKey.D2:
-                    selectItem = items[1];
-                    break;
-                case ConsoleKey.D3:
-                    selectItem = items[2];
-                    break;
-                case ConsoleKey.D4:
-                    selectItem = items[3];
-                    break;
-                case ConsoleKey.D5:
-                    selectItem = items[4];
-                    break;
-                case ConsoleKey.D6:
-                    selectItem = items[5];
-                    break;
-            }
+            ItemBase selectItem = items[(int)input - 49];
 
             selectItem.Use();    
         }

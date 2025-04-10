@@ -29,9 +29,9 @@ namespace OOPConsoleProject.Managers
         private PokeManager()
         {
             InitializeSkills();
-            InitializeEXP();
             InitializePokemon();
             InitializePixelData();
+            InitializeEXP();
             InitializeItems();
         }
 
@@ -51,6 +51,8 @@ namespace OOPConsoleProject.Managers
 
         public Dictionary<int, ItemBase> items;
         public Dictionary<int, SkillMachine> skillMachines = new Dictionary<int, SkillMachine>();
+        public Dictionary<int, RareItem> rareItems;
+        public Dictionary<int, BattleItem> battleItems;
 
 #endregion
         private void InitializeSkills()
@@ -68,7 +70,6 @@ namespace OOPConsoleProject.Managers
                 {8, new Skill("막치기", Type.Normal, 40, 100)},
                 {9, new Skill("풀베기", Type.Normal, 50, 95)},
         
-                // 풀 타입 기술
                 {10, new Skill("솔라빔", Type.Grass, 100, 70)},
                 {11, new Skill("리프스톰", Type.Grass, 110, 65)},
                 {12, new Skill("에너지볼", Type.Grass, 70, 100)},
@@ -80,7 +81,6 @@ namespace OOPConsoleProject.Managers
                 {18, new Skill("잎날가르기", Type.Grass, 55, 100)},
                 {19, new Skill("개척하기", Type.Grass, 50, 100)},
         
-                // 불 타입 기술
                 {20, new Skill("플레어드라이브", Type.Fire, 100, 70)},
                 {21, new Skill("불대문자", Type.Fire, 115, 65)},
                 {22, new Skill("화염방사", Type.Fire, 90, 95)},
@@ -91,8 +91,7 @@ namespace OOPConsoleProject.Managers
                 {27, new Skill("니트로차지", Type.Fire, 50, 100)},
                 {28, new Skill("분화", Type.Fire, 100, 50)},
                 {29, new Skill("블레이즈킥", Type.Fire, 85, 90)},
-        
-                // 물 타입 기술
+
                 {30, new Skill("하이드로펌프", Type.Water, 100, 85)},
                 {31, new Skill("파도타기", Type.Water, 90, 100)},
                 {32, new Skill("폭포오르기", Type.Water, 80, 100)},
@@ -110,11 +109,11 @@ namespace OOPConsoleProject.Managers
                 {43, new Skill("짓밞기"   , Type.Normal, 65, 100)},
                 {44, new Skill("신속"     , Type.Normal, 80, 100)},
                 {45, new Skill("우드해머"  , Type.Grass, 100, 90)},
-                {46, new Skill("하드플랜트", Type.Grass, 150, 40)},
+                {46, new Skill("하드플랜트", Type.Grass, 120, 60)},
                 {47, new Skill("소금물"    , Type.Water, 65, 100)},
                 {48, new Skill("칼등치기"  , Type.Normal, 40, 100)},
                 {49, new Skill("껍질끼우기", Type.Water,  35, 95)},
-                {50, new Skill("셸블레이드", Type.Normal, 75, 95)},
+                {50, new Skill("셸블레이드", Type.Water, 75, 95)},
                 {51, new Skill("아쿠아제트", Type.Water, 40, 100)},
 
                 {52, new Skill("불태우기"   , Type.Fire, 60, 100)},
@@ -241,8 +240,20 @@ namespace OOPConsoleProject.Managers
                 {8, new Candy("이상한사탕","포켓몬의 레벨을 1 상승시킨다.", 1) },
             };
 
-            int i = 1;
+            rareItems = new Dictionary<int, RareItem>
+            {
+                {1, new GoldenPokeBall("황금 몬스터볼","획득 시 스테이지 후 얻을 수 있는 아이템의 갯수가 증가한다.") }
+            };
 
+            battleItems = new Dictionary<int, BattleItem>
+            {
+                {1, new SilkScarf("실크스카프","획득 시 노말타입 기술의 위력이 20% 증가한다.",20)},
+                {2, new MysticWater("신비의물방울","획득 시 물타입 기술의 위력이 20% 증가한다.",20)},
+                {3, new Charcoal("목탄","획득 시 불타입 기술의 위력이 20% 증가한다.",20)},
+                {4, new MiracleSeed("기적의씨","획득 시 풀타입 기술의 위력이 20% 증가한다.",20)},
+            };
+
+            int i = 1;
             foreach (var skillPair in skills)
             {             
                 Skill skill = skillPair.Value;
@@ -272,8 +283,7 @@ namespace OOPConsoleProject.Managers
 
             if (pokePedia.TryGetValue(pokemons[random.Next(pokemons.Length)], out PokemonBaseStat data))
             {
-                return new Pokemon(data.name, data.type, data.id, data.hp, data.damage, data.defense, data.speed)
-                .SetupPixelData(pixels[data.id]).SetupSkills().SetLevel(random.Next(Game.stageCount + 1, Game.stageCount + 3)).SetRandomIV();
+                return CreatePokemon(data);
             }
             return null;
         }
@@ -282,8 +292,18 @@ namespace OOPConsoleProject.Managers
         {
             PokemonBaseStat bossData;
             bossData = pokePedia[id];
-            return new Pokemon(bossData.name, bossData.type, bossData.id, bossData.hp, bossData.damage, bossData.defense, bossData.speed)
-            .SetupPixelData(pixels[bossData.id]).SetupSkills().SetLevel(random.Next(Game.stageCount + 1, Game.stageCount + 3)).SetRandomIV();
+            return CreatePokemon(bossData);
+        }
+
+        private Pokemon CreatePokemon(PokemonBaseStat data)
+        {
+            int randomLevel = random.Next(Game.stageCount - 5, Game.stageCount);
+
+            if (randomLevel < 1)
+                randomLevel = 1;
+
+            return new Pokemon(data.name, data.type, data.id, data.hp, data.damage, data.defense, data.speed)
+            .SetupPixelData(pixels[data.id]).SetupSkills().SetRandomIV().SetLevel(randomLevel);
         }
 
         public Pokemon SetupPokemon(int id)

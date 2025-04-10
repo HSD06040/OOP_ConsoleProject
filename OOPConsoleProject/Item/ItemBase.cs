@@ -9,7 +9,7 @@ namespace OOPConsoleProject.Item
 {
     public abstract class ItemBase
     {
-        public string name;
+        public string name { get; protected set; }
         public string description;
 
         public ItemBase(string name, string description)

@@ -16,18 +16,33 @@ namespace OOPConsoleProject.Scenes
         bool isBattle = false;
         public override void RenderScene()
         {
-            if(!isBattle)
+            if (!isBattle)
                 Setup();
-
-            Console.Write($"Lv.{playerPokemon.stat.level} {playerPokemon.name} HP : {playerPokemon.stat.curHP} / {playerPokemon.stat.HP()}");
-            Console.Write($"                            ");
-            Console.Write($"Lv.{enemyPokemon.stat.level} {enemyPokemon.name} HP : {enemyPokemon.stat.curHP} / {enemyPokemon.stat.HP()}");
-            Console.WriteLine($"                       현재 스테이지 : {Game.stageCount}\n");
-            Console.Write($"경험치 : {playerPokemon.stat.curEXP} / {PokeManager.Instance.exp[playerPokemon.stat.level]}");
+            DrawUI();
 
             PixelDrawer.DrawPokemon(enemyPokemon.pixelData, 55, 5);
-            PixelDrawer.DrawPokemon(PixelDrawer.FlipPokemonHorizontal(playerPokemon.pixelData),3,15);
-            Console.WriteLine("\n\n\n");
+            PixelDrawer.DrawPokemon(PixelDrawer.FlipPokemonHorizontal(playerPokemon.pixelData), 3, 15);
+            Console.WriteLine("\n============================================================================================================================================");
+        }
+
+        private void DrawUI()
+        {
+            Console.WriteLine("============================================================================================================================================\n");
+
+            DrawStat(playerPokemon);
+            Console.Write($"                            ");
+            DrawStat(enemyPokemon);
+
+            Console.WriteLine($"                                현재 스테이지 : {Game.stageCount}\n");
+            Console.Write($"경험치 : {playerPokemon.stat.curEXP} / {PokeManager.Instance.exp[playerPokemon.stat.level]}");
+        }
+
+        private void DrawStat(Pokemon pokemon)
+        {
+            Console.Write($"Lv.{StringUtil.ColorText(pokemon.stat.level.ToString(), ConsoleColor.White)} ");
+            Console.Write($"{StringUtil.ColorText(pokemon.name, StringUtil.TypeColor(pokemon.stat.type))} ");
+            Console.Write($"HP : {StringUtil.ColorText(pokemon.stat.curHP.ToString(), ConsoleColor.Red)} / ");
+            Console.Write($"{StringUtil.ColorText(pokemon.stat.HP().ToString(), ConsoleColor.Red)}");
         }
 
         private void Setup()
@@ -134,6 +149,8 @@ namespace OOPConsoleProject.Scenes
 
         public override void Result()
         {
+            Thread.Sleep(500);
+
             if (!enemyPokemon.stat.isAlive)
             {
                 Console.WriteLine("==================================\n");

@@ -80,13 +80,13 @@ namespace OOPConsoleProject.Managers
                     removeSkill = skill;
                     break;
             }
-            Console.WriteLine(StringUtil.KoreanParticle($"\n{Game.playerPokemon.name}은/는 {removeSkill.name}을 잊어버리고"));
+            Console.WriteLine(StringUtil.KoreanParticle($"\n{Game.playerPokemon.name}은/는 {removeSkill.name}을 잊어버리고\n"));
             Thread.Sleep(300);
             Console.Write(".");
             Thread.Sleep(300);
             Console.Write(".");
             Thread.Sleep(300);
-            Console.Write(".\n");
+            Console.WriteLine(".\n");
             Thread.Sleep(200);
             Console.WriteLine(StringUtil.KoreanParticle($"{skill.name}을/를 새롭게 배웠다!\n"));
         }

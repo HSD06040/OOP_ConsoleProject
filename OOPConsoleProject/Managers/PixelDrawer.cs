@@ -5,10 +5,29 @@ namespace OOPConsoleProject.Managers
 {
     public class PixelDrawer
     {
+        private static string[,] effects =
+        {
+            {"","","","","a","a","a","a","","","","", },
+            {"","","a","a","","","","","a","a","","", },
+            {"","a","","","b","b","b","b","","","a","", },
+            {"","a","","b","","","","","b","","a","", },
+            {"a","","b","","","b","b","","","b","","a", },
+            {"a","","b","","b","a","a","b","","b","","a", },
+            {"a","","b","","b","a","a","b","","b","","a", },
+            {"a","","b","","","b","b","","","b","","a", },
+            {"","a","","b","","","","","b","","a","", },
+            {"","a","","","b","b","b","b","","","a","", },
+            {"","","a","a","","","","","a","a","","", },
+            {"","","","","a","a","a","a","","","","", }, 
+        };
+
         //static void Main()
         //{
-        //    string name = "파이어";
         //    Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+        //    //AttckEffect(Type.Fire);
+
+        //    string name = "몬스터볼";
         //    string[,] matrix = ConvertImageToSymbolMatrix(name);
 
         //    //SaveMatrixToText(matrix, name);
@@ -35,7 +54,7 @@ namespace OOPConsoleProject.Managers
 
             return pixel;
         }
-
+        
         static string[,] ConvertImageToSymbolMatrix(string name)
         {
             string path = $"PixelData/png/{name}.png";
@@ -207,6 +226,80 @@ namespace OOPConsoleProject.Managers
             return flipped;
         }
 
+        public static void PrintEffect(Type type, int xDis, int yDis)
+        {
+            ConsoleColor color1, color2;
+
+            switch(type)
+            {
+                case Type.Normal:
+                    color1 = ConsoleColor.DarkGray;
+                    color2 = ConsoleColor.White;
+                    break;
+                case Type.Grass:
+                    color1 = ConsoleColor.DarkGreen;
+                    color2 = ConsoleColor.Green;
+                    break;
+                case Type.Fire:
+                    color1 = ConsoleColor.DarkRed;
+                    color2 = ConsoleColor.Red;
+                    break;
+                case Type.Water:
+                    color1 = ConsoleColor.DarkCyan;
+                    color2 = ConsoleColor.Cyan;
+                    break;
+                default:
+                    color1 = ConsoleColor.Gray;
+                    color2 = ConsoleColor.White;
+                    break;
+            }
+
+            for (int y = 0; y < effects.GetLength(0); y++)
+            {
+                Console.SetCursorPosition(xDis, y+ yDis);
+                for (int x = 0; x < effects.GetLength(1); x++)
+                {            
+                    switch(effects[y, x])
+                    {
+                        case "a":
+                            Console.ForegroundColor = color1;
+                            Console.Write("██");
+                            break;
+                        case "b":
+                            Console.ForegroundColor = color2;
+                            Console.Write("██");
+                            break;
+                        default:
+                            Console.Write("  ");
+                            break;
+                    }
+                }
+                Console.WriteLine();
+            }
+            Console.ResetColor();
+
+            Thread.Sleep(1);
+
+            for (int y = 0; y < effects.GetLength(0); y++)
+            {
+                Console.SetCursorPosition(xDis, y + yDis);
+                for (int x = 0; x < effects.GetLength(1); x++)
+                {
+                    Console.Write("  ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public static void AttckEffect(Type type)
+        {
+            for (int i = 0; i < 50; i++)
+            {
+                PrintEffect(type,15+i,7);
+            }
+        }
+
+        #region IsColor
         static bool IsWhite(Color c)        => c.R > 240 && c.G > 240 && c.B > 240;
         static bool IsRed(Color c)          => c.R > 150 && c.G > 50 && c.B < 160 && c.G < 145; 
         static bool IsDarkRed(Color c)      => c.R > 170 && c.G > 50 && c.B < 90 && c.G < 120;
@@ -221,5 +314,7 @@ namespace OOPConsoleProject.Managers
         static bool IsDarkGray(Color c)     => c.R < 90 && c.G < 90 && c.B < 90;
         static bool IsGray(Color c)         => c.R < 190 && c.G < 190 && c.B < 190;
         static bool IsMagenta(Color c)      => c.R < 190 && c.G < 150 && c.B > 190;
+
+        #endregion
     }
 }

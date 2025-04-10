@@ -16,8 +16,10 @@ namespace OOPConsoleProject.Util
             bool crit = false;
             float critDamage = 1;
             bool STAB = myStat.type == skill.type;
+
             float STABValue = 1;
             float totalDamage = 0;
+            float itemDamage = GetItemStat(myStat,skill.type);
 
             if (CanCrit())
             {
@@ -25,18 +27,37 @@ namespace OOPConsoleProject.Util
                 critDamage = 1.5f;
             }
 
+            if (itemDamage < 1)
+                itemDamage = 1;
+
             if (STAB)
                 STABValue = 1.5f;
 
             totalDamage = ((myStat.level * 2 / 5 + 2) * skill.skillPower * myStat.Damage() / 50
-                / enemyStat.Defense() + 2) * critDamage * random.Next(217, 255) / 100 * STABValue * TypeMultifly(skill.type, enemyStat.type);
+                / enemyStat.Defense() + 2) * critDamage * itemDamage * random.Next(217, 255) / 100 * STABValue * TypeMultifly(skill.type, enemyStat.type);
 
             enemyStat.DecreaseHealth((int)totalDamage,crit);
         }
 
-        public static bool CanCrit()
+        private static bool CanCrit()
         {
             return random.Next(1, 100) < 6.25f ? true : false;
+        }
+
+        private static float GetItemStat(Stat myStat, Type skillType)
+        {
+            switch (skillType)
+            {
+                case Type.Normal:
+                    return myStat.itemStat.normalDamage;
+                case Type.Fire:
+                    return myStat.itemStat.waterDamage;
+                case Type.Grass:
+                    return myStat.itemStat.grassDamage;
+                case Type.Water:
+                    return myStat.itemStat.normalDamage;
+            }
+            return 1;
         }
 
         public static float TypeMultifly(Type skillType, Type enemyType)

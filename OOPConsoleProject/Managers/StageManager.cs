@@ -21,7 +21,6 @@ namespace OOPConsoleProject.Managers
             if (IsNormal()) return stagePokemonByDifficulty["보통"];
             return stagePokemonByDifficulty["쉬움"];
         }
-
         public static List<int> GetDifficultyByStageSkill()
         {
             List<int> skills = new List<int>();
@@ -46,6 +45,13 @@ namespace OOPConsoleProject.Managers
 
             return skills;
         }
+
+        public static void StageItemCount()
+        {
+            if (Game.stageCount != 0 && Game.stageCount % 10 == 0)
+                Game.AddItemCount();
+        }
+
         static bool IsHard() => Game.stageCount >= 50;
         static bool IsNormal() => Game.stageCount >= 25;
         static bool IsEasy() => Game.stageCount < 25;

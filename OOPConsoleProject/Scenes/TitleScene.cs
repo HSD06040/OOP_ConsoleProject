@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace OOPConsoleProject.Scenes
 {
+
     public class TitleScene : Scene
     {
         public override void Input()
@@ -17,9 +18,10 @@ namespace OOPConsoleProject.Scenes
 
         public override void RenderScene()
         {
-            Console.WriteLine("===========================================\n\n");
-            Console.WriteLine("==================포켓로그=================\n\n");
-            Console.WriteLine("===========================================\n");
+            Console.WriteLine("========================================================================================================================\n\n");
+            Console.WriteLine("========================================================포켓로그========================================================\n\n");
+            PixelDrawer.DrawPokemon(PixelDrawer.PixelLoader("몬스터볼"),27,7);
+            Console.WriteLine("========================================================================================================================");
         }
 
         public override void Result()
