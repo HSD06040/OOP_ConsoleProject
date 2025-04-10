@@ -146,8 +146,8 @@ namespace OOPConsoleProject.Managers
                 {11, new PokemonBaseStat("날쌩마"  ,Type.Fire,11 ,65, 85, 80, 105) },
 
                 // 식스테일
-                {12, new PokemonBaseStat("식스테일"  ,Type.Fire,12 ,38, 45, 55, 65) },
-                {13, new PokemonBaseStat("나인테일"  ,Type.Fire,13 ,73, 80, 90, 100) },
+                {12, new PokemonBaseStat("식스테일" ,Type.Fire,12 ,38, 45, 55, 65) },
+                {13, new PokemonBaseStat("나인테일" ,Type.Fire,13 ,73, 80, 90, 100) },
 
                 // 가디
                 {14, new PokemonBaseStat("가디"  ,Type.Fire,14 ,55, 70, 45, 60) },
@@ -226,10 +226,10 @@ namespace OOPConsoleProject.Managers
             items = new Dictionary<int, ItemBase>
             {
                 // 종족값 Up Item
-                {1, new Taurine ("타우린","포켓몬의 공격 노력치를 10% 늘려준다.") },
-                {2, new Saponin ("사포닌","포켓몬의 방어 노력치를 10% 늘려준다.") },
-                {3, new MaxUp   ("맥스업","포켓몬의 체력 노력치를 10% 늘려준다.") },
-                {4, new Alkaloid("알칼로이드","포켓몬의 스피드 노력치를 10% 늘려준다.") },
+                {1, new Taurine ("타우린","포켓몬의 공격 종족값을 10% 늘려준다.") },
+                {2, new Saponin ("사포닌","포켓몬의 방어 종족값를 10% 늘려준다.") },
+                {3, new MaxUp   ("맥스업","포켓몬의 체력 종족값를 10% 늘려준다.") },
+                {4, new Alkaloid("알칼로이드","포켓몬의 스피드 종족값를 10% 늘려준다.") },
 
                 // 힐 아이템
                 {5, new Potion("상처약","포켓몬의 HP를 20 만큼 회복한다.",20) },
@@ -297,7 +297,7 @@ namespace OOPConsoleProject.Managers
 
         private Pokemon CreatePokemon(PokemonBaseStat data)
         {
-            int randomLevel = random.Next(Game.stageCount - 5, Game.stageCount);
+            int randomLevel = random.Next(Game.stageCount - 3, Game.stageCount + 3);
 
             if (randomLevel < 1)
                 randomLevel = 1;

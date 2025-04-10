@@ -17,7 +17,7 @@ namespace OOPConsoleProject.Scenes
 
         public override void Enter()
         {
-            StageManager.StageItemCount();
+            StageManager.StageUpdate();
 
             items = new ItemBase[Game.itemCount];
 
@@ -26,7 +26,7 @@ namespace OOPConsoleProject.Scenes
             List<int> allRareItems = PokeManager.Instance.rareItems.Keys.ToList();
             List<int> allBattleItems = PokeManager.Instance.battleItems.Keys.ToList();
 
-            HashSet<int> selectedItems          = new HashSet<int>();        
+            HashSet<int> selectedItems          = new HashSet<int>();  
             HashSet<int> selectedSkillMachines  = new HashSet<int>();
             HashSet<int> selectedRareItems      = new HashSet<int>();
             HashSet<int> selectedBattleItems    = new HashSet<int>();
@@ -35,14 +35,14 @@ namespace OOPConsoleProject.Scenes
                     < Game.itemCount)
             {
                 int id;
-                int randomNum = random.Next(1,100);
+                float randomNum = random.Next(1,100);
                 bool isSkillMachine = false;                                // 기술머신 확률 20%, 황금몬스터볼 확률 3퍼, 배틀아이템 6퍼 
                 bool isBattleItem = false;
                 bool isRareItem = false;
 
                 if (randomNum <= 1)
                     isRareItem = true;
-                else if (randomNum <= 4)
+                else if (randomNum <= 2.5f)
                     isBattleItem = true;
                 else if (randomNum <= 20)
                     isSkillMachine = true;
@@ -68,8 +68,8 @@ namespace OOPConsoleProject.Scenes
                     {
                         id = allItems[random.Next(allItems.Count)];
                     }
-                    while ((Game.stageCount < 30 && (id == 6 || id == 7)) ||
-                           (Game.stageCount < 60 && id == 7));
+                    while ((Game.stageCount < 25 && (id == 6 || id == 7)) ||
+                           (Game.stageCount < 50 && id == 7));
 
                     selectedItems.Add(id);
                 }

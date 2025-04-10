@@ -33,8 +33,11 @@ namespace OOPConsoleProject.Util
             if (STAB)
                 STABValue = 1.5f;
 
-            totalDamage = ((myStat.level * 2 / 5 + 2) * skill.skillPower * myStat.Damage() / 50
-                / enemyStat.Defense() + 2) * critDamage * itemDamage * random.Next(217, 255) / 100 * STABValue * TypeMultifly(skill.type, enemyStat.type);
+            totalDamage = (((((myStat.level * 2 / 5 + 2) * skill.skillPower * myStat.Damage() / 50)
+                / enemyStat.Defense()) + 2) * critDamage * itemDamage)* random.Next(217, 256) / 255 * STABValue * TypeMultifly(skill.type, enemyStat.type);
+
+            if (totalDamage == 0)
+                totalDamage = 1;
 
             enemyStat.DecreaseHealth((int)totalDamage,crit);
         }
@@ -67,7 +70,7 @@ namespace OOPConsoleProject.Util
                 switch (enemyType)
                 {
                     case Type.Grass:
-                        Console.WriteLine("효과가 굉장하다!\n");
+                        Console.WriteLine("효과가 굉장했다!\n");
                         return 2;
                     case Type.Water:
                         Console.WriteLine("효과가 별로인 것 같다...\n");
@@ -89,7 +92,7 @@ namespace OOPConsoleProject.Util
                         Console.WriteLine("효과가 별로인 것 같다...\n");
                         return .5f;
                     case Type.Fire:
-                        Console.WriteLine("효과가 굉장하다!\n");
+                        Console.WriteLine("효과가 굉장했다!\n");
                         return 2;
                 }
             }
@@ -102,7 +105,7 @@ namespace OOPConsoleProject.Util
                         Console.WriteLine("효과가 별로인 것 같다...\n");
                         return .5f;
                     case Type.Water:
-                        Console.WriteLine("효과가 굉장하다!\n");
+                        Console.WriteLine("효과가 굉장했다!\n");
                         return 2;
                     case Type.Fire:
                         Console.WriteLine("효과가 별로인 것 같다...\n");

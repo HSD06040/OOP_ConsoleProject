@@ -67,11 +67,18 @@ namespace OOPConsoleProject.PokemonData
             curHP += amount;
 
             Thread.Sleep(300);
-            Console.WriteLine(StringUtil.KoreanParticle($"{name,6}은/는 {amount,3} 만큼의 체력을 회복했다!\n"));
+            
 
             if (curHP > HP())
             {
                 curHP = HP();
+                Console.WriteLine(StringUtil.KoreanParticle($"{name,6}은/는 체력을 모두 회복했다!\n"));
+                Thread.Sleep(1000);
+            }
+            else
+            {
+                Console.WriteLine(StringUtil.KoreanParticle($"{name,6}은/는 {amount,3} 만큼의 체력을 회복했다!\n"));
+                Thread.Sleep(1000);
             }
         }
 
@@ -155,7 +162,7 @@ namespace OOPConsoleProject.PokemonData
         }
         public int AnotherStat(int stat)
         {
-            return (2 * stat + IV) * level / 100 + 5;
+            return ((2 * stat + IV) * level / 100) + 5;
         }
         #endregion
 

@@ -46,10 +46,16 @@ namespace OOPConsoleProject.Managers
             return skills;
         }
 
-        public static void StageItemCount()
+        public static void StageUpdate()
         {
             if (Game.stageCount != 0 && Game.stageCount % 10 == 0)
+            {
+                Game.playerPokemon.stat.IncreaseHealth(300);
+            }
+            if (Game.stageCount != 0 && Game.stageCount % 20 == 0)
+            {
                 Game.AddItemCount();
+            }
         }
 
         static bool IsHard() => Game.stageCount >= 50;
