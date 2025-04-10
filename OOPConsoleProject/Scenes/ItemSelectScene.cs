@@ -96,28 +96,32 @@ namespace OOPConsoleProject.Scenes
 
         public override void RenderScene()
         {
-            Console.WriteLine("===================================아이템을 고르세요!===================================\n");
+            Console.ForegroundColor = ConsoleColor.Cyan;           
+            Console.WriteLine("████████████████████████████████████████  아이템을 고르세요  ████████████████████████████████████████\n\n");
+            Console.ResetColor();
             foreach (var item in items)
             {
                 item.PrintData();
             }
-            Console.WriteLine("======================================================================================");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("\n======================================================================================================\n");
+            Console.ResetColor();
 
             Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine($"\n{playerPokemon.name}의 현재 체력 {playerPokemon.stat.curHP} / {playerPokemon.stat.HP()}\n");
+            Console.WriteLine($"\n{playerPokemon.name}의 현재 체력 {playerPokemon.stat.curHP} / {playerPokemon.stat.HP()}\n\n");
             Console.ResetColor();
             playerPokemon.PrintSkillData();
         }
 
         public override void Input()
         {
-            Console.WriteLine("==================================\n");
+            Console.WriteLine("======================================================================================================\n");
             for (int i = 0; i < items.Length; i++)
             {
                 Console.WriteLine(StringUtil.KoreanParticle($"{i + 1}. {items[i].name}을/를 고른다.\n"));
             }
 
-            Console.WriteLine("==================================\n");
+            Console.WriteLine("======================================================================================================\n");
             do
             {
                 base.Input();
@@ -134,9 +138,9 @@ namespace OOPConsoleProject.Scenes
 
         public override void Result()
         {
-            Console.WriteLine("==================================\n");
+            Console.WriteLine("======================================================================================================\n");
             Console.WriteLine("계속 진행을 원하시면 아무키나 클릭하세요\n");
-            Console.WriteLine("==================================\n");
+            Console.WriteLine("======================================================================================================\n");
 
             Console.ReadKey(true);
          

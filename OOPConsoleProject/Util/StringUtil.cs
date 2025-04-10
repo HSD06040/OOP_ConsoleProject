@@ -48,7 +48,7 @@ namespace OOPConsoleProject.Util
                 case Type.Normal:
                     return "노말";
                 case Type.Fire:
-                    return "불";
+                    return "불꽃";
                 case Type.Grass:
                     return "풀";
                 case Type.Water:

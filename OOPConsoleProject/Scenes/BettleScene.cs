@@ -153,9 +153,9 @@ namespace OOPConsoleProject.Scenes
 
             if (!enemyPokemon.stat.isAlive)
             {
-                Console.WriteLine("==================================\n");
+                Console.WriteLine("======================================================================================================\n");
                 Console.WriteLine("계속 진행을 원하시면 아무키나 클릭하세요\n");
-                Console.WriteLine("==================================\n");
+                Console.WriteLine("======================================================================================================\n");
 
                 Console.ReadKey(true);
 
